@@ -1,11 +1,16 @@
 [phases.setup]
 nixPkgs = ["python312", "nodejs_20", "gcc"]
 
+[phases.install]
+cmds = [
+    "pip install -r requirements.txt",
+    "cd src/webapp && npm install"
+]
+
 [phases.build]
 cmds = [
-    "python src/webapp_assets_sync.py > /app/build.log 2>&1",
-    "bash build_frontend.sh >> /app/build.log 2>&1",
-    "pip install -r requirements.txt >> /app/build.log 2>&1"
+    "python src/webapp_assets_sync.py",
+    "cd src/webapp && npm run build"
 ]
 
 [start]
