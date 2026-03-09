@@ -19,6 +19,36 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/debug-paths")
+async def debug_paths():
+    import os
+    from pathlib import Path
+    
+    current_dir = Path.cwd()
+    structure = []
+    
+    def walk_dir(p, depth=0):
+        if depth > 2: return
+        try:
+            for item in p.iterdir():
+                if item.is_dir():
+                    if item.name not in ["node_modules", ".git", "myenv", "__pycache__", ".venv"]:
+                        structure.append(f"{'  '*depth} [D] {item.name}")
+                        walk_dir(item, depth + 1)
+                else:
+                    structure.append(f"{'  '*depth} [F] {item.name}")
+        except:
+            pass
+
+    walk_dir(current_dir)
+    return {
+        "current_dir": str(current_dir),
+        "structure": structure,
+        "static_dir": str(STATIC_DIR),
+        "static_dir_exists": STATIC_DIR.exists(),
+        "env_port": os.environ.get("PORT")
+    }
+
 @app.get("/health")
 def health_check():
     return {"status": "ok", "message": "API is reachable"}
