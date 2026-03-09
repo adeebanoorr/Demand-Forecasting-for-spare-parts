@@ -1,17 +1,8 @@
 [phases.setup]
-nixPkgs = ["python312", "nodejs_20", "gcc"]
+nixPkgs = ["python312", "gcc"]
 
 [phases.install]
-cmds = [
-    "pip install -r requirements.txt",
-    "cd src/webapp && npm install"
-]
-
-[phases.build]
-cmds = [
-    "python src/webapp_assets_sync.py",
-    "cd src/webapp && npm run build"
-]
+cmds = ["pip install -r requirements.txt"]
 
 [start]
 cmd = "gunicorn app:app --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT"

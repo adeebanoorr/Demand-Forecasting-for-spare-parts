@@ -8,7 +8,6 @@ import os
 import traceback
 from fastapi.middleware.wsgi import WSGIMiddleware
 
-# KPCL Spare Parts Forecast API - Last Updated: 2026-03-09 10:25
 app = FastAPI()
 
 # Enable CORS
@@ -19,45 +18,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/build-logs")
-async def build_logs():
-    import os
-    from pathlib import Path
-    log_path = Path("/app/build.log")
-    if log_path.exists():
-        return FileResponse(log_path)
-    return {"error": "Build log not found at /app/build.log"}
-
-@app.get("/debug-paths")
-async def debug_paths():
-    import os
-    from pathlib import Path
-    
-    current_dir = Path.cwd()
-    structure = []
-    
-    def walk_dir(p, depth=0):
-        if depth > 2: return
-        try:
-            for item in p.iterdir():
-                if item.is_dir():
-                    if item.name not in ["node_modules", ".git", "myenv", "__pycache__", ".venv"]:
-                        structure.append(f"{'  '*depth} [D] {item.name}")
-                        walk_dir(item, depth + 1)
-                else:
-                    structure.append(f"{'  '*depth} [F] {item.name}")
-        except:
-            pass
-
-    walk_dir(current_dir)
-    return {
-        "current_dir": str(current_dir),
-        "structure": structure,
-        "static_dir": str(STATIC_DIR),
-        "static_dir_exists": STATIC_DIR.exists(),
-        "env_port": os.environ.get("PORT")
-    }
-
 @app.get("/health")
 def health_check():
     return {"status": "ok", "message": "API is reachable"}
@@ -65,12 +25,6 @@ def health_check():
 # Directories
 BASE_DIR = Path(__file__).resolve().parents[2] / "data" / "processed"
 STATIC_DIR = Path(__file__).resolve().parents[1] / "webapp" / "dist"
-
-print(f"DEBUG: __file__ is {__file__}")
-print(f"DEBUG: STATIC_DIR is {STATIC_DIR}")
-print(f"DEBUG: STATIC_DIR exists: {STATIC_DIR.exists()}")
-if STATIC_DIR.exists():
-    print(f"DEBUG: STATIC_DIR contents: {list(STATIC_DIR.glob('*'))}")
 
 @app.get("/")
 def read_index():
