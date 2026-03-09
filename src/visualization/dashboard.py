@@ -50,7 +50,7 @@ app = dash.Dash(
     __name__, 
     external_stylesheets=[dbc.themes.FLATLY],
     requests_pathname_prefix='/analytics/',
-    routes_pathname_prefix='/analytics/'
+    routes_pathname_prefix='/'
 )
 # Note: For local development, access via FastAPI at /analytics
 
