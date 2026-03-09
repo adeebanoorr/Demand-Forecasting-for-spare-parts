@@ -6,6 +6,7 @@ import uvicorn
 from pathlib import Path
 import os
 import traceback
+from fastapi.middleware.wsgi import WSGIMiddleware
 
 app = FastAPI()
 
@@ -397,6 +398,14 @@ def download_comparison():
 
 if STATIC_DIR.exists():
     app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")
+
+# Mount Dash Performance Dashboard
+try:
+    from src.visualization.dashboard import app as dash_app
+    app.mount("/analytics", WSGIMiddleware(dash_app.server))
+    print("DEBUG: Dash Analytics dashboard mounted at /analytics")
+except Exception as e:
+    print(f"DEBUG: Failed to mount Dash analytics: {e}")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))

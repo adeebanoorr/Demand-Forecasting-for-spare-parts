@@ -213,7 +213,7 @@ export default function App() {
                 </div>
                 <div className="relative rounded-2xl overflow-hidden border border-slate-100 bg-slate-50" style={{ height: '85vh' }}>
                   <iframe
-                    src="http://localhost:8050"
+                    src="/analytics/"
                     className="w-full h-full border-none"
                     title="Spare Parts Performance Dashboard"
                     loading="lazy"

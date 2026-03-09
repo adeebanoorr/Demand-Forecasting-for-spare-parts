@@ -6,10 +6,13 @@ import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
 
+from pathlib import Path
+
 # ==========================================
 # 1. DATA LOADING & MAPPING
 # ==========================================
-csv_path = r'D:\KPCL_SparePartConsumption_Project\kpcl_selected_item_forecasting\data\raw\KPC___Despatch_Details_260924.csv'
+BASE_DIR = Path(__file__).resolve().parents[2]
+csv_path = BASE_DIR / "data" / "raw" / "KPC___Despatch_Details_260924.csv"
 
 try:
     df_raw = pd.read_csv(csv_path)
@@ -43,7 +46,13 @@ K_CLAY = '#C27E5F'
 K_DARK = '#0D4D44'
 K_BG = '#EBF7F6'
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.FLATLY])
+app = dash.Dash(
+    __name__, 
+    external_stylesheets=[dbc.themes.FLATLY],
+    requests_pathname_prefix='/analytics/',
+    routes_pathname_prefix='/analytics/'
+)
+# Note: For local development, access via FastAPI at /analytics
 
 app.index_string = f'''
 <!DOCTYPE html>
