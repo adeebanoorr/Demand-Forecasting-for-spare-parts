@@ -1,5 +1,6 @@
 # Data
-/data/*
+/data/raw/*
+!/data/raw/KPC___Despatch_Details_260924.csv
 !/data/processed/
 /models/
 
