@@ -50,9 +50,8 @@ app = dash.Dash(
     __name__, 
     external_stylesheets=[dbc.themes.FLATLY],
     requests_pathname_prefix='/analytics/',
-    routes_pathname_prefix='/'
+    routes_pathname_prefix='/analytics/'
 )
-# Note: For local development, access via FastAPI at /analytics
 
 app.index_string = f'''
 <!DOCTYPE html>
@@ -216,4 +215,4 @@ def update_view(tab, r, m, c, start, end):
         return html.Div(f"Error in Callback: {str(e)}")
 
 if __name__ == '__main__':
-    app.run(debug=False, port=8050)
+    app.run(debug=False, host='0.0.0.0', port=8050)

@@ -25,9 +25,8 @@ import {
   Cpu
 } from 'lucide-react';
 
-const isLocal = window.location.hostname === 'localhost';
-const API_BASE = isLocal ? "http://localhost:8000/api" : "/api";
-const ANALYTICS_URL = isLocal ? "http://localhost:8050/analytics/" : "/analytics/";
+const API_BASE = "/api";
+const ANALYTICS_URL = "/analytics/";
 
 // --- Components ---
 
