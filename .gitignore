@@ -25,7 +25,7 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
+# dist/
 downloads/
 eggs/
 .eggs/
@@ -196,6 +196,7 @@ cython_debug/
 # Web App
 /src/webapp/node_modules/
 !/src/webapp/dist/
+!/src/webapp/public/assets/
 
 # Project Specific
 myenv/

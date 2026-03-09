@@ -25,7 +25,9 @@ import {
   Cpu
 } from 'lucide-react';
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "/api";
+const isLocal = window.location.hostname === 'localhost';
+const API_BASE = isLocal ? "http://localhost:8000" : "/api";
+const ANALYTICS_URL = isLocal ? "http://localhost:8050" : "/analytics/";
 
 // --- Components ---
 
@@ -213,7 +215,7 @@ export default function App() {
                 </div>
                 <div className="relative rounded-2xl overflow-hidden border border-slate-100 bg-slate-50" style={{ height: '85vh' }}>
                   <iframe
-                    src={"/analytics/?v=3"}
+                    src={`${ANALYTICS_URL}?v=4`}
                     className="w-full h-full border-none"
                     title="Spare Parts Performance Dashboard"
                     loading="lazy"
