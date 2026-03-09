@@ -3,8 +3,9 @@ nixPkgs = ["python312", "nodejs_20", "gcc"]
 
 [phases.build]
 cmds = [
-    "rm -rf src/webapp/dist",
-    "cd src/webapp && npm install && npm run build",
+    "mkdir -p /app/src/webapp/dist",
+    "cd /app/src/webapp && npm install && npm run build",
+    "ls -R /app/src/webapp/dist",
     "pip install -r requirements.txt"
 ]
 
