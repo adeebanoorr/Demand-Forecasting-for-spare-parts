@@ -396,9 +396,6 @@ def download_comparison():
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
-if STATIC_DIR.exists():
-    app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")
-
 # Mount Dash Performance Dashboard
 try:
     from src.visualization.dashboard import app as dash_app
@@ -406,6 +403,9 @@ try:
     print("DEBUG: Dash Analytics dashboard mounted at /analytics")
 except Exception as e:
     print(f"DEBUG: Failed to mount Dash analytics: {e}")
+
+if STATIC_DIR.exists():
+    app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
