@@ -5,8 +5,13 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
+import os
 
 from pathlib import Path
+
+# Production = running on Railway (WSGI mount), strips /analytics prefix
+# Local = standalone Dash server on :8050, Vite proxies /analytics/ to it
+IS_PRODUCTION = os.environ.get("RAILWAY_ENVIRONMENT") is not None
 
 # ==========================================
 # 1. DATA LOADING & MAPPING
@@ -50,7 +55,7 @@ app = dash.Dash(
     __name__, 
     external_stylesheets=[dbc.themes.FLATLY],
     requests_pathname_prefix='/analytics/',
-    routes_pathname_prefix='/analytics/'
+    routes_pathname_prefix='/' if IS_PRODUCTION else '/analytics/'
 )
 
 app.index_string = f'''
