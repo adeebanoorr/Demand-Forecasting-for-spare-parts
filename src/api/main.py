@@ -62,7 +62,7 @@ def get_mstl(item_code: str):
     import pandas as pd
     from statsmodels.tsa.seasonal import MSTL
     try:
-        data_path = BASE_DIR.parent / "data_preparation" / "train_dataset.csv"
+        data_path = BASE_DIR / "data_preparation" / "train_dataset.csv"
         df = pd.read_csv(data_path, parse_dates=["OA_DATE"])
         df = df[df["ITEM_CODE"] == item_code].copy()
         if df.empty:
@@ -75,11 +75,16 @@ def get_mstl(item_code: str):
             raise HTTPException(status_code=422, detail="Not enough data for decomposition")
         periods = [52] if len(df) >= 104 else [min(26, len(df) // 2)]
         mstl = MSTL(df["QTY"], periods=periods).fit()
+        seasonal_raw = mstl.seasonal
+        if isinstance(seasonal_raw, pd.DataFrame):
+            seasonal_vals = seasonal_raw.iloc[:, 0].round(2)
+        else:
+            seasonal_vals = seasonal_raw.round(2)
         result = pd.DataFrame({
             "week": df["week"].dt.strftime("%Y-%m-%d"),
             "observed": df["QTY"].round(2),
             "trend": mstl.trend.round(2),
-            "seasonal": mstl.seasonal.iloc[:, 0].round(2) if hasattr(mstl.seasonal, "iloc") else mstl.seasonal.round(2),
+            "seasonal": seasonal_vals,
             "residual": mstl.resid.round(2),
         })
         return result.to_dict(orient="records")
