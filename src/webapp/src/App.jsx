@@ -28,6 +28,112 @@ import {
 const API_BASE = "/api";
 const ANALYTICS_URL = "/analytics/";
 
+// --- Analysis Page Component (MSTL Decomposition Charts) ---
+const AnalysisPage = ({ items, selectedItem, setSelectedItem }) => {
+  const [mstlData, setMstlData] = useState([]);
+  const [mstlLoading, setMstlLoading] = useState(false);
+  const [mstlError, setMstlError] = useState(null);
+  const [mstlItem, setMstlItem] = useState(selectedItem || '');
+
+  useEffect(() => {
+    if (!mstlItem) return;
+    setMstlLoading(true);
+    setMstlError(null);
+    fetch(`${API_BASE}/mstl/${encodeURIComponent(mstlItem)}`)
+      .then(r => r.ok ? r.json() : r.text().then(t => Promise.reject(t)))
+      .then(d => { setMstlData(d); setMstlLoading(false); })
+      .catch(e => { setMstlError(String(e)); setMstlLoading(false); });
+  }, [mstlItem]);
+
+  const panels = [
+    { key: 'observed', label: 'Observed (Weekly QTY)', color: '#26988A' },
+    { key: 'trend', label: 'Trend Component', color: '#e74c3c' },
+    { key: 'seasonal', label: 'Seasonal Component', color: '#27ae60' },
+    { key: 'residual', label: 'Residual', color: '#7f8c8d' },
+  ];
+  const tick = { fontSize: 10, fill: '#94a3b8' };
+
+  return (
+    <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 space-y-6">
+      <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm space-y-6">
+        <div className="flex justify-between items-center flex-wrap gap-4">
+          <div className="space-y-1">
+            <h2 className="text-slate-800 font-black text-lg tracking-tight">MSTL Component Analysis</h2>
+            <p className="text-xs text-slate-400">Trend, Seasonality & Residual Decomposition</p>
+          </div>
+          <div className="flex items-center gap-4 flex-wrap">
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Select Item:</span>
+              <select
+                value={mstlItem}
+                onChange={(e) => { setMstlItem(e.target.value); setSelectedItem(e.target.value); }}
+                className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-lg text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal/20 transition-all cursor-pointer"
+              >
+                {items.map(code => <option key={code} value={code}>{code}</option>)}
+              </select>
+            </div>
+            <div className="text-[10px] font-black uppercase text-teal bg-teal/10 px-3 py-1 rounded-full">
+              Trend & Seasonality Decomposition
+            </div>
+          </div>
+        </div>
+
+        <p className="text-xs text-slate-400 leading-relaxed max-w-2xl">
+          MSTL (Multiple Seasonal-Trend decomposition using Loess) extracts the underlying structure
+          of each item's weekly demand history into four interactive components below.
+        </p>
+
+        {mstlLoading && (
+          <div className="flex items-center justify-center h-48 text-teal gap-3">
+            <Loader2 className="animate-spin" size={20} />
+            <span className="text-sm font-bold">Computing decomposition…</span>
+          </div>
+        )}
+        {mstlError && (
+          <div className="text-red-400 text-sm p-4 bg-red-50 rounded-xl">Error loading data: {mstlError}</div>
+        )}
+        {!mstlLoading && !mstlError && mstlData.length > 0 && (
+          <div className="space-y-4">
+            {panels.map(({ key, label, color }) => (
+              <div key={key} className="bg-slate-50/60 rounded-xl p-4">
+                <div className="flex items-center gap-2 mb-2 pl-1">
+                  <div className="w-2.5 h-2.5 rounded-full" style={{ background: color }} />
+                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{label}</span>
+                </div>
+                <ResponsiveContainer width="100%" height={130}>
+                  <ComposedChart data={mstlData} margin={{ top: 4, right: 20, left: 10, bottom: 4 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                    <XAxis
+                      dataKey="week"
+                      tick={tick}
+                      tickFormatter={v => v ? v.slice(0, 7) : ''}
+                      interval={Math.floor(mstlData.length / 8)}
+                    />
+                    <YAxis tick={tick} tickFormatter={v => Number(v).toFixed(0)} width={52} />
+                    <Tooltip
+                      contentStyle={{ fontSize: 11, borderRadius: 8, border: '1px solid #e2e8f0' }}
+                      formatter={(v) => [Number(v).toFixed(2), label]}
+                      labelFormatter={l => `Week: ${l}`}
+                    />
+                    {key === 'residual' ? (
+                      <Area type="monotone" dataKey={key} stroke={color} fill={color} fillOpacity={0.2} strokeWidth={1.5} dot={false} />
+                    ) : (
+                      <Line type="monotone" dataKey={key} stroke={color} strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                    )}
+                  </ComposedChart>
+                </ResponsiveContainer>
+              </div>
+            ))}
+          </div>
+        )}
+        {!mstlLoading && !mstlError && mstlData.length === 0 && mstlItem && (
+          <div className="text-slate-400 text-center py-16 text-sm">No data available for this item.</div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 // --- Components ---
 
 const SidebarItem = ({ icon: Icon, label, active, onClick }) => (
@@ -390,123 +496,18 @@ export default function App() {
             </div>
           )}
 
-          {page === 'analysis' && (() => {
-            const [mstlData, setMstlData] = React.useState([]);
-            const [mstlLoading, setMstlLoading] = React.useState(false);
-            const [mstlError, setMstlError] = React.useState(null);
-            const [mstlItem, setMstlItem] = React.useState(selectedItem);
+          {page === 'analysis' && (
+            <AnalysisPage
+              items={items}
+              selectedItem={selectedItem}
+              setSelectedItem={setSelectedItem}
+            />
+          )}
 
-            React.useEffect(() => {
-              if (!mstlItem) return;
-              setMstlLoading(true);
-              setMstlError(null);
-              fetch(`${API_BASE}/mstl/${mstlItem}`)
-                .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
-                .then(d => { setMstlData(d); setMstlLoading(false); })
-                .catch(e => { setMstlError(String(e)); setMstlLoading(false); });
-            }, [mstlItem]);
 
-            const panels = [
-              { key: 'observed', label: 'Observed (Weekly QTY)', color: '#26988A', dot: false },
-              { key: 'trend', label: 'Trend Component', color: '#e74c3c', dot: false },
-              { key: 'seasonal', label: 'Seasonal Component', color: '#27ae60', dot: false },
-              { key: 'residual', label: 'Residual', color: '#7f8c8d', dot: false },
-            ];
 
-            const tick = { fontSize: 10, fill: '#94a3b8' };
-            const fmt = (v) => Number(v).toFixed(1);
 
-            return (
-              <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 space-y-6">
-                <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm space-y-6">
-                  {/* Header */}
-                  <div className="flex justify-between items-center flex-wrap gap-4">
-                    <SectionTitle title="MSTL Component Analysis" />
-                    <div className="flex items-center gap-4 flex-wrap">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Select Item:</span>
-                        <select
-                          value={mstlItem}
-                          onChange={(e) => { setMstlItem(e.target.value); setSelectedItem(e.target.value); }}
-                          className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-lg text-xs font-bold text-slate-900 focus:ring-2 focus:ring-teal/20 transition-all cursor-pointer"
-                        >
-                          {items.map(code => <option key={code} value={code}>{code}</option>)}
-                        </select>
-                      </div>
-                      <div className="text-[10px] font-black uppercase text-teal bg-teal/10 px-3 py-1 rounded-full">
-                        Trend & Seasonality Decomposition
-                      </div>
-                    </div>
-                  </div>
 
-                  {/* Description */}
-                  <p className="text-xs text-slate-400 leading-relaxed max-w-2xl">
-                    MSTL (Multiple Seasonal-Trend decomposition using Loess) extracts the underlying structure
-                    of the weekly demand history into four components shown below.
-                  </p>
-
-                  {/* Charts */}
-                  {mstlLoading && (
-                    <div className="flex items-center justify-center h-64 text-teal gap-3">
-                      <Loader2 className="animate-spin" size={20} /><span className="text-sm font-bold">Computing decomposition…</span>
-                    </div>
-                  )}
-                  {mstlError && (
-                    <div className="text-red-400 text-sm p-4 bg-red-50 rounded-xl">Error: {mstlError}</div>
-                  )}
-                  {!mstlLoading && !mstlError && mstlData.length > 0 && (
-                    <div className="space-y-2">
-                      {panels.map(({ key, label, color }) => (
-                        <div key={key}>
-                          <div className="flex items-center gap-2 mb-1 pl-1">
-                            <div className="w-2 h-2 rounded-full" style={{ background: color }} />
-                            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{label}</span>
-                          </div>
-                          <ResponsiveContainer width="100%" height={120}>
-                            <ComposedChart data={mstlData} margin={{ top: 4, right: 20, left: 10, bottom: 4 }}>
-                              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                              <XAxis
-                                dataKey="week"
-                                tick={tick}
-                                tickFormatter={v => v ? v.slice(0, 7) : ''}
-                                interval={Math.floor(mstlData.length / 8)}
-                              />
-                              <YAxis tick={tick} tickFormatter={fmt} width={52} />
-                              <Tooltip
-                                contentStyle={{ fontSize: 11, borderRadius: 8, border: '1px solid #e2e8f0' }}
-                                formatter={(v) => [Number(v).toFixed(2), label]}
-                                labelFormatter={l => `Week: ${l}`}
-                              />
-                              {key === 'residual' ? (
-                                <Area
-                                  type="monotone"
-                                  dataKey={key}
-                                  stroke={color}
-                                  fill={color}
-                                  fillOpacity={0.15}
-                                  strokeWidth={1.5}
-                                  dot={false}
-                                />
-                              ) : (
-                                <Line
-                                  type="monotone"
-                                  dataKey={key}
-                                  stroke={color}
-                                  strokeWidth={2}
-                                  dot={false}
-                                  activeDot={{ r: 4 }}
-                                />
-                              )}
-                            </ComposedChart>
-                          </ResponsiveContainer>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
-          })()}
 
           {page === 'dashboard' && (
             <>
