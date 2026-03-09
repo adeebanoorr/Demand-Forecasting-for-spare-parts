@@ -56,6 +56,39 @@ def get_items():
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.get("/api/mstl/{item_code:path}")
+def get_mstl(item_code: str):
+    """Compute MSTL decomposition and return Trend, Seasonal, Residual as JSON."""
+    import pandas as pd
+    from statsmodels.tsa.seasonal import MSTL
+    try:
+        data_path = BASE_DIR.parent / "data_preparation" / "train_dataset.csv"
+        df = pd.read_csv(data_path, parse_dates=["OA_DATE"])
+        df = df[df["ITEM_CODE"] == item_code].copy()
+        if df.empty:
+            raise HTTPException(status_code=404, detail=f"No data for item {item_code}")
+        # Aggregate to weekly
+        df = df.set_index("OA_DATE").resample("W")["QTY"].sum().reset_index()
+        df = df.rename(columns={"OA_DATE": "week"})
+        df = df.sort_values("week").reset_index(drop=True)
+        if len(df) < 4:
+            raise HTTPException(status_code=422, detail="Not enough data for decomposition")
+        periods = [52] if len(df) >= 104 else [min(26, len(df) // 2)]
+        mstl = MSTL(df["QTY"], periods=periods).fit()
+        result = pd.DataFrame({
+            "week": df["week"].dt.strftime("%Y-%m-%d"),
+            "observed": df["QTY"].round(2),
+            "trend": mstl.trend.round(2),
+            "seasonal": mstl.seasonal.iloc[:, 0].round(2) if hasattr(mstl.seasonal, "iloc") else mstl.seasonal.round(2),
+            "residual": mstl.resid.round(2),
+        })
+        return result.to_dict(orient="records")
+    except HTTPException:
+        raise
+    except Exception as e:
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
 def _fetch_forecast_data(item_code: str, model_name: str):
     import pandas as pd
     lookup_code = item_code.rstrip('.')
