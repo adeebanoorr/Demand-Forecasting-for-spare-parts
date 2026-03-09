@@ -67,22 +67,31 @@ def get_mstl(item_code: str):
         df = df[df["ITEM_CODE"] == item_code].copy()
         if df.empty:
             raise HTTPException(status_code=404, detail=f"No data for item {item_code}")
-        # Aggregate to weekly
-        df = df.set_index("OA_DATE").resample("W")["QTY"].sum().reset_index()
-        df = df.rename(columns={"OA_DATE": "week"})
-        df = df.sort_values("week").reset_index(drop=True)
-        if len(df) < 4:
+        # Aggregate to weekly, filling missing weeks with 0
+        weekly = df.set_index("OA_DATE").resample("W")["QTY"].sum()
+        full_idx = pd.date_range(weekly.index.min(), weekly.index.max(), freq="W")
+        weekly = weekly.reindex(full_idx, fill_value=0)
+        weekly.index.name = "week"
+        weekly = weekly.reset_index()
+        if len(weekly) < 8:
             raise HTTPException(status_code=422, detail="Not enough data for decomposition")
-        periods = [52] if len(df) >= 104 else [min(26, len(df) // 2)]
-        mstl = MSTL(df["QTY"], periods=periods).fit()
+        # Try periods that make sense for available data length
+        n = len(weekly)
+        period = 52 if n >= 104 else (26 if n >= 52 else max(4, n // 4))
+        try:
+            mstl = MSTL(weekly["QTY"], periods=[period]).fit()
+        except Exception as mstl_err:
+            # Fallback: smaller period
+            period = max(4, n // 6)
+            mstl = MSTL(weekly["QTY"], periods=[period]).fit()
         seasonal_raw = mstl.seasonal
         if isinstance(seasonal_raw, pd.DataFrame):
             seasonal_vals = seasonal_raw.iloc[:, 0].round(2)
         else:
             seasonal_vals = seasonal_raw.round(2)
         result = pd.DataFrame({
-            "week": df["week"].dt.strftime("%Y-%m-%d"),
-            "observed": df["QTY"].round(2),
+            "week": weekly["week"].dt.strftime("%Y-%m-%d"),
+            "observed": weekly["QTY"].round(2),
             "trend": mstl.trend.round(2),
             "seasonal": seasonal_vals,
             "residual": mstl.resid.round(2),
