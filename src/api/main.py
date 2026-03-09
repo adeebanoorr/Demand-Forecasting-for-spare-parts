@@ -19,6 +19,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/build-logs")
+async def build_logs():
+    import os
+    from pathlib import Path
+    log_path = Path("/app/build.log")
+    if log_path.exists():
+        return FileResponse(log_path)
+    return {"error": "Build log not found at /app/build.log"}
+
 @app.get("/debug-paths")
 async def debug_paths():
     import os
