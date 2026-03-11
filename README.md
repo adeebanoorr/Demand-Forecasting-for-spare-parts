@@ -30,7 +30,7 @@ The system surfaces forecasts through a modern web dashboard, a live Dash analyt
 |---|---|
 | **Source** | `KPC___Despatch_Details_260924.xlsx` — KPCL internal despatch records |
 | **Model Filter** | ACR SPARES only |
-| **Item Selection** | 8 highest-priority items by order volume |
+| **Item Selection** | 8 items selected by KPCL based on operational priority |
 | **Training Columns** | `OA_DATE`, `ITEM_CODE`, `QTY`, `MODEL`, `ITEM_DESCRIPTION` |
 | **Training Period** | June 2021 → December 2023 (4,769 rows → weekly aggregate) |
 | **Test Period** | January 2024 → September 2024 (12 hold-out weeks per item) |
