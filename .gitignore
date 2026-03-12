@@ -205,4 +205,7 @@ myenv/
 *.webp
 *.png
 *.jpg
+!/src/webapp/public/*.png
+!/src/webapp/public/*.jpg
+!/src/webapp/public/*.svg
 !reports/figures/
