@@ -25,8 +25,8 @@ import {
   Cpu
 } from 'lucide-react';
 
-const API_BASE = "/api";
-const ANALYTICS_URL = "/analytics/";
+const API_BASE = import.meta.env.VITE_API_URL || "/api";
+const ANALYTICS_URL = import.meta.env.VITE_ANALYTICS_URL || "/analytics/";
 
 // --- Analysis Page Component (MSTL Decomposition Charts) ---
 const AnalysisPage = ({ items, selectedItem, setSelectedItem }) => {

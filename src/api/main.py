@@ -11,9 +11,10 @@ from fastapi.middleware.wsgi import WSGIMiddleware
 app = FastAPI()
 
 # Enable CORS
+allowed_origins = os.environ.get("ALLOWED_ORIGINS", "*").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )
