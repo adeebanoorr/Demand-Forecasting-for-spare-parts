@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Kirloskar Logo](src/webapp/public/logo.png)
+![Kirloskar Logo](frontend/public/logo.png)
 
 **AI-Powered Weekly Demand Forecasting for ACR SPARES**  
 Kirloskar Pneumatic Co. Ltd. | Production-Ready Deployment on Railway
@@ -57,20 +57,21 @@ The system surfaces forecasts through a modern web dashboard, a live Dash analyt
 ┌─────────────────────────────────────────────────────────────┐
 │                    KPCL Forecasting Platform                 │
 │                                                             │
-│  ┌──────────────┐   ┌──────────────┐   ┌────────────────┐  │
-│  │ React Frontend│   │ FastAPI      │   │ Dash Analytics │  │
-│  │ Vite + Recharts│  │ Backend API  │   │ Plotly + DBC   │  │
-│  │ localhost:5173│   │ localhost:8000│  │ localhost:8050 │  │
-│  └──────┬───────┘   └──────┬───────┘   └───────┬────────┘  │
-│         │                  │                   │            │
-│         └──────────────────┴───────────────────┘            │
+│  ┌────────────────┐   ┌──────────────┐   ┌────────────────┐  │
+│  │ React Frontend │   │ FastAPI      │   │ Dash Analytics │  │
+│  │ (in /frontend) │   │ Backend API  │   │ (in /backend)  │  │
+│  │ localhost:5173 │   │ localhost:8000 │  │ localhost:8050 │  │
+│  └──────┬─────────┘   └──────┬───────┘   └───────┬────────┘  │
+│         │                    │                   │            │
+│         └────────────────────┴───────────────────┘            │
 │                    Vite Proxy (local dev)                    │
 │                                                             │
 │  ══════════════════[ Production: Railway ]═════════════════ │
-│  Single FastAPI service serves:                             │
+│  Single process (via backend/api/main.py) serves all:        │
 │  /api/*         → FastAPI endpoints                         │
 │  /analytics/    → Dash (WSGIMiddleware)                     │
 │  /*             → React dist (StaticFiles)                  │
+│  All data resides in /data and /models root folders.        │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -122,38 +123,36 @@ Weekly demand data is decomposed using **MSTL (Multiple Seasonal-Trend decomposi
 ```
 kpcl_selected_item_forecasting/
 │
-├── src/
+├── backend/                  ← All Python logic & API
 │   ├── api/
-│   │   └── main.py              ← FastAPI backend (all /api/* endpoints)
+│   │   └── main.py           ← FastAPI backend (all /api/* endpoints)
 │   ├── data/
-│   │   └── data_preparation.py  ← Data cleaning & weekly aggregation
+│   │   └── data_preparation.py ← Data cleaning & weekly aggregation
 │   ├── modeling/
 │   │   ├── compare_models_rmse.py
 │   │   ├── train_forecast_all_models.py
-│   │   └── validate_all_models.py
+│   │   └── train_forecast_autosarima.py
 │   ├── visualization/
-│   │   └── dashboard.py         ← Dash analytics dashboard
-│   └── webapp/
-│       ├── src/App.jsx           ← React frontend (all tabs)
-│       ├── dist/                 ← Pre-built production assets (committed)
-│       └── vite.config.js        ← Dev server + proxy config
+│   │   └── dashboard.py      ← Dash analytics dashboard
+│   └── forecast_validation/  ← Logic for scoring & error metrics
+│
+├── frontend/                 ← React web application
+│   ├── src/App.jsx           ← Main interface logic
+│   ├── dist/                 ← Production build (StaticFiles source)
+│   └── vite.config.js        ← Dev server + proxy config
 │
 ├── data/
-│   ├── raw/                     ← Source XLSX/CSV files
-│   └── processed/
-│       ├── all_forecast/        ← 8× *_final_forecast.csv
-│       ├── all_validation/      ← Validation vs actual CSVs
-│       ├── classic_ml_*/        ← ML model outputs
-│       └── data_preparation/    ← train_dataset.csv, test_dataset.csv
+│   ├── raw/                  ← Source records (XLSX/CSV)
+│   └── processed/            ← Model-ready datasets & results
 │
-├── models/                      ← Trained .pkl model files
-├── reports/figures/             ← Static chart exports
+├── models/                   ← Saved champion model files (.skl/.pkl)
+├── reports/figures/          ← Static visualization exports
 │
-├── start.ps1                    ← Local development launcher
-├── run_pipeline.ps1             ← Full ML pipeline runner
-├── requirements.txt
-├── nixpacks.toml                ← Railway build config
-└── runtime.txt                  ← Python 3.11.9 pin (Render)
+├── start.ps1                 ← Local dev: Start all 3 servers
+├── run_pipeline.ps1          ← Full 10-step ML automation
+├── requirements.txt          ← "Golden Set" dependencies
+├── app.py                    ← Deployment entry point
+└── nixpacks.toml             ← Railway environment configerence
 ```
 
 ---
@@ -220,12 +219,16 @@ The Vite dev server proxies `/analytics/` → `:8050` and `/api` → `:8000`, so
 ```
 
 Steps:
-1. Data preparation & weekly aggregation
-2. Classic ML model comparison
-3. Time series model comparison
-4. Auto-SARIMA training
-5. Final forecast generation for all 8 items
-6. Validation against hold-out set
+1. **Data Preparation**: Cleans raw XLSX and aggregates to weekly CSV.
+2. **MSTL Analysis**: Performs seasonal-trend decomposition.
+3. **ML Comparison**: Scores XGBoost, Random Forest, etc. (RMSE).
+4. **ML Training**: Trains the champion Classical ML model.
+5. **TS Comparison**: Scores AR, MA, Prophet, ARIMA (RMSE).
+6. **Auto-SARIMA**: Exhaustive seasonal parameter search (optimized).
+7. **ML Validation**: Generates hold-out sets for ML models.
+8. **SARIMA Validation**: Generates hold-out sets for Auto-SARIMA.
+9. **Final Forecast**: Produces 12-week output for the dashboard.
+10. **Global Summary**: Unified ranking for the home tab.
 
 ---
 
@@ -244,11 +247,11 @@ git push origin main   # Railway auto-deploys on push
 
 ### Update Frontend (after UI changes)
 ```powershell
-cd src\webapp
+cd frontend
 npm run build
-cd ..\..
-git add -f src/webapp/dist
-git commit -m "Production build: <description>"
+cd ..
+git add -f frontend/dist
+git commit -m "Production update: <description>"
 git push origin main
 ```
 
