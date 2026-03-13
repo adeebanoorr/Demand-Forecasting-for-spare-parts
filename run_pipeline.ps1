@@ -31,16 +31,16 @@ Write-Host "  KPCL Forecasting - Full ML Pipeline" -ForegroundColor Cyan
 Write-Host "  Started: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')" -ForegroundColor Gray
 Write-Host "========================================" -ForegroundColor Cyan
 
-Invoke-Step "Step 1/10: Data Preparation"                 "src/data/data_preparation.py"
-Invoke-Step "Step 2/10: MSTL Decomposition Analysis"      "src/visualization/mstl_analysis.py"
-Invoke-Step "Step 3/10: Classic ML Model Comparison"      "src/modeling/compare_classic_ml_rmse.py"
-Invoke-Step "Step 4/10: Train Champion Classic ML"        "src/modeling/train_forecast_classic_ml.py"
-Invoke-Step "Step 5/10: Time Series Model Comparison"     "src/modeling/compare_models_rmse.py"
-Invoke-Step "Step 6/10: Auto-SARIMA Training"             "src/modeling/train_forecast_autosarima.py"
-Invoke-Step "Step 7/10: Validate Classic ML"              "src/forecast_validation/validate_classic_ml.py"
-Invoke-Step "Step 8/10: Validate Auto-SARIMA"            "src/forecast_validation/validate_autosarima_model.py"
-Invoke-Step "Step 9/10: Final Forecast - TS & SARIMA"     "src/modeling/train_forecast_all_models.py"
-Invoke-Step "Step 10/10: Global Validation Summary"       "src/forecast_validation/validate_all_models.py"
+Invoke-Step "Step 1/10: Data Preparation"                 "backend/data/data_preparation.py"
+Invoke-Step "Step 2/10: MSTL Decomposition Analysis"      "backend/visualization/mstl_analysis.py"
+Invoke-Step "Step 3/10: Classic ML Model Comparison"      "backend/modeling/compare_classic_ml_rmse.py"
+Invoke-Step "Step 4/10: Train Champion Classic ML"        "backend/modeling/train_forecast_classic_ml.py"
+Invoke-Step "Step 5/10: Time Series Model Comparison"     "backend/modeling/compare_models_rmse.py"
+Invoke-Step "Step 6/10: Auto-SARIMA Training"             "backend/modeling/train_forecast_autosarima.py"
+Invoke-Step "Step 7/10: Validate Classic ML"              "backend/forecast_validation/validate_classic_ml.py"
+Invoke-Step "Step 8/10: Validate Auto-SARIMA"            "backend/forecast_validation/validate_autosarima_model.py"
+Invoke-Step "Step 9/10: Final Forecast - TS & SARIMA"     "backend/modeling/train_forecast_all_models.py"
+Invoke-Step "Step 10/10: Global Validation Summary"       "backend/forecast_validation/validate_all_models.py"
 
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Green

@@ -3,7 +3,7 @@
 
 $PROJECT_ROOT = Split-Path -Parent $MyInvocation.MyCommand.Definition
 $PYTHON = "$PROJECT_ROOT\myenv\Scripts\python.exe"
-$WEBAPP_DIR = "$PROJECT_ROOT\src\webapp"
+$WEBAPP_DIR = "$PROJECT_ROOT\frontend"
 
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Cyan
@@ -15,14 +15,14 @@ Write-Host ""
 # 1. Dash Performance Dashboard (port 8050)
 Write-Host "[1/3] Starting Dash Dashboard  -> http://localhost:8050" -ForegroundColor Yellow
 Start-Process powershell -ArgumentList "-NoExit", "-Command", `
-    "Set-Location '$PROJECT_ROOT'; Write-Host 'Dash Dashboard - port 8050' -ForegroundColor Yellow; & '$PYTHON' src/visualization/dashboard.py"
+    "Set-Location '$PROJECT_ROOT'; Write-Host 'Dash Dashboard - port 8050' -ForegroundColor Yellow; & '$PYTHON' backend/visualization/dashboard.py"
 
 Start-Sleep -Seconds 2
 
 # 2. FastAPI Backend (port 8000)
 Write-Host "[2/3] Starting FastAPI Backend -> http://localhost:8000" -ForegroundColor Green
 Start-Process powershell -ArgumentList "-NoExit", "-Command", `
-    "Set-Location '$PROJECT_ROOT'; Write-Host 'FastAPI Backend - port 8000' -ForegroundColor Green; & '$PYTHON' -m uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload"
+    "Set-Location '$PROJECT_ROOT'; Write-Host 'FastAPI Backend - port 8000' -ForegroundColor Green; & '$PYTHON' -m uvicorn backend.api.main:app --host 0.0.0.0 --port 8000 --reload"
 
 Start-Sleep -Seconds 2
 

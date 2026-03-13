@@ -194,9 +194,9 @@ cython_debug/
 .pypirc
 
 # Web App
-/src/webapp/node_modules/
-!/src/webapp/dist/
-!/src/webapp/public/assets/
+/frontend/node_modules/
+!/frontend/dist/
+!/frontend/public/assets/
 
 # Project Specific
 myenv/
@@ -205,7 +205,7 @@ myenv/
 *.webp
 *.png
 *.jpg
-!/src/webapp/public/*.png
-!/src/webapp/public/*.jpg
-!/src/webapp/public/*.svg
+!/frontend/public/*.png
+!/frontend/public/*.jpg
+!/frontend/public/*.svg
 !reports/figures/

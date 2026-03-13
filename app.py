@@ -9,7 +9,7 @@ sys.path.append(str(root_dir))
 
 # Import the FastAPI app from the main module
 try:
-    from src.api.main import app
+    from backend.api.main import app
 except ImportError as e:
     print(f"Error importing app: {e}")
     print(f"Current directory: {os.getcwd()}")
