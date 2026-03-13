@@ -4,9 +4,17 @@ gunicorn==22.0.0
 pandas==2.2.2
 numpy==1.26.4
 prophet==1.1.5
+holidays==0.41
+cmdstanpy==1.1.0
 statsmodels==0.14.2
 joblib==1.4.2
 plotly==5.22.0
 python-dotenv==1.0.1
 dash==2.17.0
 dash-bootstrap-components==1.6.0
+pmdarima>=2.0.4
+scikit-learn==1.5.2
+xgboost>=2.1.0
+matplotlib>=3.10.8
+openpyxl>=3.1.5
+scipy==1.13.1

@@ -65,7 +65,10 @@ def main():
             ts,
             seasonal=(m > 1),
             m=m,
+            max_p=3, max_q=3,
+            max_P=1, max_Q=1, max_D=1,
             stepwise=True,
+            n_fits=30,
             suppress_warnings=True,
             error_action="ignore",
             trace=False
