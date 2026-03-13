@@ -192,7 +192,59 @@ Documentation panel covering dataset overview, training/test split, feature engi
 
 ---
 
-## 🚀 Local Development
+## 🏁 Getting Started (Step-by-Step)
+
+Follow these steps to set up the project on your local machine if you are starting from scratch.
+
+### 1. Prerequisites
+Ensure you have the following installed:
+*   **Python 3.11+**: [Download here](https://www.python.org/downloads/)
+*   **Node.js 18+**: [Download here](https://nodejs.org/)
+*   **Git**: [Download here](https://git-scm.com/)
+
+### 2. Clone the Repository
+```bash
+git clone https://github.com/adeebanoorr/Demand-Forecasting-for-KPCL-spare-parts.git
+cd Demand-Forecasting-for-KPCL-spare-parts
+```
+
+### 3. Backend Environment Setup
+Create a virtual environment to isolate the project dependencies:
+```powershell
+# Create environment
+python -m venv myenv
+
+# Activate environment
+.\myenv\Scripts\activate
+
+# Install required Python libraries
+pip install -r requirements.txt
+```
+
+### 4. Frontend Environment Setup
+Navigate to the frontend folder and install the web dependencies:
+```powershell
+cd frontend
+npm install
+cd ..
+```
+
+### 5. Initialize the ML Models
+The project requires pre-trained models and processed data to function. Run the full automation pipeline (takes ~10-15 minutes):
+```powershell
+.\run_pipeline.ps1
+```
+
+### 6. Launch the Application
+Once the pipeline is complete, start the integrated server environment:
+```powershell
+.\start.ps1
+```
+The application will be available at **`http://localhost:5173`**.
+
+---
+
+## 🚀 Local Development Reference
 
 ### Prerequisites
 - Python 3.11+, Node.js 18+
@@ -270,33 +322,25 @@ git push origin main
 
 ---
 
-## 📦 Dependencies
+## 📦 Core Technology Stack
 
-| Package | Version | Purpose |
-|---|---|---|
-| `fastapi` | 0.111.0 | REST API framework |
-| `uvicorn` | 0.30.1 | ASGI server |
-| `gunicorn` | 22.0.0 | Production WSGI runner |
-| `pandas` | 2.2.2 | Data processing |
-| `numpy` | 1.26.4 | Numerical computation |
-| `statsmodels` | 0.14.2 | AR, MA, ARIMA, SARIMA, MSTL |
-| `prophet` | 1.1.5 | Facebook Prophet model |
-| `plotly` | 5.22.0 | Dash chart rendering |
-| `dash` | 2.17.0 | Analytics dashboard |
-| `dash-bootstrap-components` | 1.6.0 | Dashboard styling |
-| `joblib` | 1.4.2 | Model serialization |
-| React + Vite | 18 / 5 | Frontend framework |
-| Recharts | Latest | Interactive time series charts |
+### Backend (Python)
+*   **FastAPI**: High-performance web framework for the REST API.
+*   **Statsmodels**: Used for classical time series models (AR, MA, ARIMA, SARIMA, MSTL).
+*   **Prophet**: Meta's forecasting tool for handling strong seasonality and holidays.
+*   **Scikit-Learn / XGBoost**: Used for Machine Learning based forecasting (Random Forest, Gradient Boosting).
+*   **Pandas/Numpy**: The backbone for all data manipulation and numerical processing.
 
----
+### Frontend (JavaScript/React)
+*   **React + Vite**: Modern, ultra-fast frontend framework and build tool.
+*   **Recharts**: Interactive charting library used for the dynamic forecast and MSTL plots.
+*   **Tailwind CSS**: Utility-first CSS framework for the dashboard's premium enterprise look.
+*   **Lucide React**: Clean and consistent iconography.
 
-## 🧪 Key Design Decisions
-
-1. **Monolithic Deployment** — Dash + FastAPI + React served from one Railway service to minimize cost and complexity.
-2. **Pre-built `dist/` in Git** — Bypasses cloud build limitations; ensures Railway always serves exactly what was tested locally.
-3. **Environment-aware Dash routing** — `routes_pathname_prefix` switches between `'/'` (Railway/WSGIMiddleware) and `'/analytics/'` (local standalone) using `RAILWAY_ENVIRONMENT`.
-4. **Vite proxy for local dev** — Routes `/analytics/` and `/api` through the Vite dev server so the app runs on a single origin without CORS issues.
-5. **Zero-filled weekly series** — Missing weeks are filled with 0 before MSTL decomposition to ensure a complete regular time series for all items (including sparse ones).
+### Analytics & Deployment
+*   **Dash/Plotly**: Integrated for deeper statistical reporting and revenue analytics.
+*   **Railway**: Cloud platform for unified hosting of the API and Web App.
+*   **Vercel**: Optimized hosting for the React frontend.
 
 ---
 
