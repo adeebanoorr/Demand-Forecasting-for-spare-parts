@@ -88,8 +88,7 @@ app.index_string = f'''
 # 3. GLOBAL HEADER & FILTERS
 # ==========================================
 header = dbc.Row([
-    dbc.Col(html.H2("Spare Parts Performance Dashboard", style={'color': K_TEAL, 'fontWeight': 'bold'}), width=9),
-    dbc.Col(html.Img(src="https://www.kirloskarlimitless.com/image/layout_set_logo?img_id=497324", height="55px"), width=3, className="text-end")
+    dbc.Col(html.H2("Spare Parts Performance Dashboard", style={'color': K_TEAL, 'fontWeight': 'bold'}), width=12)
 ], className="mx-0 my-3 px-3 align-items-center")
 
 filters = html.Div(className="pbi-card mx-3 mb-3", children=[

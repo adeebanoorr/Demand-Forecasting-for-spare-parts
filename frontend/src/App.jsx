@@ -293,7 +293,6 @@ export default function App() {
           </div>
 
           <div className="flex flex-col items-center justify-center gap-1 flex-1">
-            <img src="/logo.png" alt="Kirloskar Logo" className="h-10 w-auto" />
             <div className="flex items-center gap-2">
               <Boxes className="text-teal" size={16} />
               <h1 className="text-sm font-bold text-slate-700 uppercase tracking-widest text-center">AI Spare Parts Demand Forecasting</h1>
