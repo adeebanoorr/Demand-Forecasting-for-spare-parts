@@ -46,7 +46,7 @@ const AnalysisPage = ({ items, selectedItem, setSelectedItem }) => {
   }, [mstlItem]);
 
   const panels = [
-    { key: 'observed', label: 'Observed (Weekly QTY)', color: '#26988A' },
+    { key: 'observed', label: 'Observed (Weekly QTY)', color: '#0075BE' },
     { key: 'trend', label: 'Trend Component', color: '#e74c3c' },
     { key: 'seasonal', label: 'Seasonal Component', color: '#27ae60' },
     { key: 'residual', label: 'Residual', color: '#7f8c8d' },
@@ -268,7 +268,7 @@ export default function App() {
   return (
     <div className="flex min-h-screen bg-slate-50 font-sans">
       {/* Sidebar - Solid Teal */}
-      <aside className="w-64 bg-[#26988A] text-white flex flex-col fixed h-full z-20 shadow-xl">
+      <aside className="w-64 bg-[#0075BE] text-white flex flex-col fixed h-full z-20 shadow-xl">
 
         <div className="p-6 space-y-8 flex-1">
           <div className="space-y-4">
@@ -293,6 +293,7 @@ export default function App() {
           </div>
 
           <div className="flex flex-col items-center justify-center gap-1 flex-1">
+            <img src="/logo.png" alt="Indi4 Logo" className="h-10 w-auto" />
             <div className="flex items-center gap-2">
               <Boxes className="text-teal" size={16} />
               <h1 className="text-sm font-bold text-slate-700 uppercase tracking-widest text-center">AI Spare Parts Demand Forecasting</h1>
@@ -300,9 +301,9 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-6 w-48 justify-end">
-            <div className="flex items-center gap-2 px-3 py-1 bg-[#CC8062]/10 rounded-full">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#CC8062] animate-pulse" />
-              <span className="text-[10px] font-black text-[#CC8062] uppercase">Production Active</span>
+            <div className="flex items-center gap-2 px-3 py-1 bg-[#234FA2]/10 rounded-full">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#234FA2] animate-pulse" />
+              <span className="text-[10px] font-black text-[#234FA2] uppercase">Production Active</span>
             </div>
           </div>
         </header>
@@ -424,7 +425,7 @@ export default function App() {
                           <td className="px-6 py-4 font-mono text-sm font-bold text-slate-800">{code}</td>
                           <td className="px-6 py-4 text-slate-600 text-sm">{desc}</td>
                           <td className="px-6 py-4 text-slate-500">{rows}</td>
-                          <td className="px-6 py-4 font-bold text-[#CC8062]">{champ}</td>
+                          <td className="px-6 py-4 font-bold text-[#234FA2]">{champ}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -441,8 +442,8 @@ export default function App() {
                     <div className="text-slate-700 font-bold text-sm">June 2021 — December 2023</div>
                     <div className="text-slate-400 text-sm">4,769 order-level rows → aggregated to weekly QTY time series per item. Models were trained on these weekly series.</div>
                   </div>
-                  <div className="bg-[#CC8062]/5 border border-[#CC8062]/20 rounded-2xl p-6 space-y-2">
-                    <div className="text-[#CC8062] font-black text-lg">Test / Validation Set</div>
+                  <div className="bg-[#234FA2]/5 border border-[#234FA2]/20 rounded-2xl p-6 space-y-2">
+                    <div className="text-[#234FA2] font-black text-lg">Test / Validation Set</div>
                     <div className="text-slate-700 font-bold text-sm">January 2024 — September 2024</div>
                     <div className="text-slate-400 text-sm">1,617 rows (≈ 12 hold-out weeks per item). Models were never trained on this data — used only for final RMSE validation.</div>
                   </div>
@@ -541,7 +542,7 @@ export default function App() {
                   <SectionTitle title="12-Week Forecast Projection" />
                   <div className="flex items-center gap-2 text-xs font-bold text-slate-400">
                     <div className="flex items-center gap-1"><div className="w-3 h-3 rounded-full bg-slate-200" /> Historical</div>
-                    <div className="flex items-center gap-1 ml-4"><div className="w-3 h-3 rounded-full bg-[#CC8062]" /> Projection</div>
+                    <div className="flex items-center gap-1 ml-4"><div className="w-3 h-3 rounded-full bg-[#234FA2]" /> Projection</div>
                   </div>
                 </div>
                 <div className="h-[500px] w-full min-h-[500px] relative">
@@ -562,11 +563,11 @@ export default function App() {
                             contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.2)' }}
                           />
                           <Legend verticalAlign="top" height={40} />
-                          <Area type="monotone" dataKey="ci_upper" stroke="none" fill="#CC8062" fillOpacity={0.05} />
-                          <Area type="monotone" dataKey="ci_lower" stroke="none" fill="#CC8062" fillOpacity={0.05} />
-                          <Line name={`Best ML (${modelNames.ml})`} type="monotone" dataKey="ml" stroke="#26988A" strokeWidth={3} dot={{ r: 3, fill: '#fff', stroke: '#26988A', strokeWidth: 2 }} strokeDasharray="5 5" />
+                          <Area type="monotone" dataKey="ci_upper" stroke="none" fill="#234FA2" fillOpacity={0.05} />
+                          <Area type="monotone" dataKey="ci_lower" stroke="none" fill="#234FA2" fillOpacity={0.05} />
+                          <Line name={`Best ML (${modelNames.ml})`} type="monotone" dataKey="ml" stroke="#0075BE" strokeWidth={3} dot={{ r: 3, fill: '#fff', stroke: '#0075BE', strokeWidth: 2 }} strokeDasharray="5 5" />
                           <Line name={`Best TS (${modelNames.ts})`} type="monotone" dataKey="ts" stroke="#64748b" strokeWidth={3} dot={{ r: 3, fill: '#fff', stroke: '#64748b', strokeWidth: 2 }} strokeDasharray="3 3" />
-                          <Line name={`Champion (${modelNames.champion})`} type="monotone" dataKey="champion" stroke="#CC8062" strokeWidth={4} dot={{ r: 4, fill: '#fff', stroke: '#CC8062', strokeWidth: 2 }} />
+                          <Line name={`Champion (${modelNames.champion})`} type="monotone" dataKey="champion" stroke="#234FA2" strokeWidth={4} dot={{ r: 4, fill: '#fff', stroke: '#234FA2', strokeWidth: 2 }} />
                           <Line name="Actual History" type="monotone" dataKey="actual" stroke="#cbd5e1" strokeWidth={3} dot={{ r: 4, fill: '#fff', stroke: '#cbd5e1', strokeWidth: 2 }} />
                         </ComposedChart>
                       </ResponsiveContainer>
@@ -579,7 +580,7 @@ export default function App() {
               <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden animate-in fade-in slide-in-from-bottom-4">
                 <div className="p-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/20">
                   <SectionTitle title="Detailed Forecast Data" />
-                  <div className="text-[10px] font-black uppercase text-[#CC8062] bg-[#CC8062]/10 px-3 py-1 rounded-full">{selectedItem} Metrics</div>
+                  <div className="text-[10px] font-black uppercase text-[#234FA2] bg-[#234FA2]/10 px-3 py-1 rounded-full">{selectedItem} Metrics</div>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-left">
@@ -597,9 +598,9 @@ export default function App() {
                         <tr key={i} className="hover:bg-slate-50 transition-colors">
                           <td className="px-10 py-4 font-bold text-slate-700">{row.week}</td>
                           <td className="px-10 py-4 text-center font-mono text-sm">{row.actual !== null && row.actual !== undefined ? Number(row.actual).toFixed(2) : '---'}</td>
-                          <td className="px-10 py-4 text-center font-mono text-sm font-bold text-[#26988A]">{row.ml !== null && row.ml !== undefined ? Number(row.ml).toFixed(2) : '---'}</td>
+                          <td className="px-10 py-4 text-center font-mono text-sm font-bold text-[#0075BE]">{row.ml !== null && row.ml !== undefined ? Number(row.ml).toFixed(2) : '---'}</td>
                           <td className="px-10 py-4 text-center font-mono text-sm font-bold text-[#64748b]">{row.ts !== null && row.ts !== undefined ? Number(row.ts).toFixed(2) : '---'}</td>
-                          <td className="px-10 py-4 text-center font-mono text-sm font-bold text-[#CC8062]">{row.champion !== null && row.champion !== undefined ? Number(row.champion).toFixed(2) : '---'}</td>
+                          <td className="px-10 py-4 text-center font-mono text-sm font-bold text-[#234FA2]">{row.champion !== null && row.champion !== undefined ? Number(row.champion).toFixed(2) : '---'}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -609,13 +610,13 @@ export default function App() {
                         <td className="px-10 py-6 text-center font-mono text-lg">
                           {forecast.reduce((acc, r) => acc + (r.actual || 0), 0).toFixed(2)}
                         </td>
-                        <td className="px-10 py-6 text-center font-mono text-lg text-[#26988A]">
+                        <td className="px-10 py-6 text-center font-mono text-lg text-[#0075BE]">
                           {forecast.reduce((acc, r) => acc + (r.ml || 0), 0).toFixed(2)}
                         </td>
                         <td className="px-10 py-6 text-center font-mono text-lg text-[#64748b]">
                           {forecast.reduce((acc, r) => acc + (r.ts || 0), 0).toFixed(2)}
                         </td>
-                        <td className="px-10 py-6 text-center font-mono text-lg text-[#CC8062]">
+                        <td className="px-10 py-6 text-center font-mono text-lg text-[#234FA2]">
                           {forecast.reduce((acc, r) => acc + (r.champion || 0), 0).toFixed(2)}
                         </td>
                       </tr>
@@ -629,7 +630,7 @@ export default function App() {
                 <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm">
                   <div className="flex justify-between items-center mb-8">
                     <SectionTitle title="Forecast vs Actual Validation" />
-                    <div className="text-[10px] font-black uppercase text-[#26988A] bg-[#26988A]/10 px-3 py-1 rounded-full">
+                    <div className="text-[10px] font-black uppercase text-[#0075BE] bg-[#0075BE]/10 px-3 py-1 rounded-full">
                       Champion Model — Held-Out 12 Weeks
                     </div>
                   </div>
@@ -644,10 +645,10 @@ export default function App() {
                           contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.2)', fontSize: 12 }}
                         />
                         <Legend verticalAlign="top" height={36} />
-                        <Area type="monotone" dataKey="ci_upper" stroke="none" fill="#CC8062" fillOpacity={0.08} name="95% CI" legendType="square" />
-                        <Area type="monotone" dataKey="ci_lower" stroke="none" fill="#CC8062" fillOpacity={0.08} legendType="none" />
-                        <Line name="Actual (Hold-Out)" type="monotone" dataKey="actual" stroke="#26988A" strokeWidth={3} dot={{ r: 5, fill: '#fff', stroke: '#26988A', strokeWidth: 2 }} />
-                        <Line name={`Forecast (${modelNames.champion || 'Champion'})`} type="monotone" dataKey="forecast" stroke="#CC8062" strokeWidth={3} strokeDasharray="6 3" dot={{ r: 4, fill: '#fff', stroke: '#CC8062', strokeWidth: 2 }} />
+                        <Area type="monotone" dataKey="ci_upper" stroke="none" fill="#234FA2" fillOpacity={0.08} name="95% CI" legendType="square" />
+                        <Area type="monotone" dataKey="ci_lower" stroke="none" fill="#234FA2" fillOpacity={0.08} legendType="none" />
+                        <Line name="Actual (Hold-Out)" type="monotone" dataKey="actual" stroke="#0075BE" strokeWidth={3} dot={{ r: 5, fill: '#fff', stroke: '#0075BE', strokeWidth: 2 }} />
+                        <Line name={`Forecast (${modelNames.champion || 'Champion'})`} type="monotone" dataKey="forecast" stroke="#234FA2" strokeWidth={3} strokeDasharray="6 3" dot={{ r: 4, fill: '#fff', stroke: '#234FA2', strokeWidth: 2 }} />
                       </ComposedChart>
                     </ResponsiveContainer>
                   </div>
@@ -658,11 +659,11 @@ export default function App() {
               )}
 
               {/* Champion Highlight - MOVED BELOW TABLE */}
-              <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm border-l-4 border-l-[#CC8062]">
+              <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm border-l-4 border-l-[#234FA2]">
                 <div className="flex flex-col lg:flex-row justify-between gap-10">
                   <div className="flex-1 space-y-4">
                     <div className="flex items-center gap-3">
-                      <div className="p-2 bg-[#CC8062]/10 text-[#CC8062] rounded-lg"><CheckCircle2 size={24} /></div>
+                      <div className="p-2 bg-[#234FA2]/10 text-[#234FA2] rounded-lg"><CheckCircle2 size={24} /></div>
                       <h3 className="text-2xl font-black text-slate-800 tracking-tight">Champion Model: {metrics?.champion}</h3>
                     </div>
                     <p className="text-slate-500 text-sm leading-relaxed max-w-2xl">

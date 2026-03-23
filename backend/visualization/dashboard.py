@@ -46,9 +46,9 @@ except Exception as e:
 # ==========================================
 # 2. BRAND COLOR PALETTE & STYLING
 # ==========================================
-K_TEAL = '#1A9988'
-K_CLAY = '#C27E5F'
-K_DARK = '#0D4D44'
+K_TEAL = '#0075BE'
+K_CLAY = '#234FA2'
+K_DARK = '#234FA2'
 K_BG = '#EBF7F6'
 
 app = dash.Dash(

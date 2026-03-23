@@ -2,6 +2,8 @@
 
 <div align="center">
 
+![Indi4 Logo](frontend/public/logo.png)
+
 **AI-Powered Weekly Demand Forecasting for ACR SPARES**  
 Kirloskar Pneumatic Co. Ltd. | Production-Ready Deployment on Railway
 

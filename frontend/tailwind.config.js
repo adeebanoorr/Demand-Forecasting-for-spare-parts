@@ -9,11 +9,11 @@ export default {
             colors: {
                 teal: {
                     light: '#3dbbb1',
-                    DEFAULT: '#26988A',
+                    DEFAULT: '#0075BE',
                     dark: '#1e7a6e',
                 },
                 accent: {
-                    DEFAULT: '#CC8062',
+                    DEFAULT: '#234FA2',
                     light: '#e1a68d',
                 }
             },
