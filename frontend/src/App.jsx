@@ -227,18 +227,23 @@ export default function App() {
 
   const fetchDashboardData = useCallback(async (itemCode) => {
     if (!itemCode) return;
-    setLoading(prev => ({ ...prev, metrics: true }));
+    setLoading(prev => ({ ...prev, metrics: true, forecast: true }));
     try {
-      const [mRes, cRes] = await Promise.all([
+      const [mRes, cRes, compRes, valRes] = await Promise.all([
         fetch(`${API_BASE}/metrics/${itemCode}`).then(r => r.json()),
-        fetch(`${API_BASE}/comparison/${itemCode}`).then(r => r.json())
+        fetch(`${API_BASE}/comparison/${itemCode}`).then(r => r.json()),
+        fetch(`${API_BASE}/forecast_comparison/${itemCode}`).then(r => r.json()),
+        fetch(`${API_BASE}/validation/${itemCode}`).then(r => r.ok ? r.json() : null).catch(() => null)
       ]);
       setMetrics(mRes);
       setComparison(cRes);
+      setForecast(compRes.data);
+      setModelNames(compRes.models);
+      setValidation(valRes?.data || []);
     } catch (e) {
       console.error(e);
     } finally {
-      setLoading(prev => ({ ...prev, metrics: false }));
+      setLoading(prev => ({ ...prev, metrics: false, forecast: false }));
     }
   }, []);
 
@@ -247,23 +252,6 @@ export default function App() {
       fetchDashboardData(selectedItem);
     }
   }, [selectedItem, page, fetchDashboardData]);
-
-  const handleGenerateForecast = async (item = selectedItem) => {
-    setLoading(prev => ({ ...prev, forecast: true }));
-    try {
-      const [compRes, valRes] = await Promise.all([
-        fetch(`${API_BASE}/forecast_comparison/${item}`).then(r => r.json()),
-        fetch(`${API_BASE}/validation/${item}`).then(r => r.ok ? r.json() : null).catch(() => null)
-      ]);
-      setForecast(compRes.data);
-      setModelNames(compRes.models);
-      setValidation(valRes?.data || []);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(prev => ({ ...prev, forecast: false }));
-    }
-  };
 
   return (
     <div className="flex min-h-screen bg-slate-50 font-sans">
@@ -522,16 +510,6 @@ export default function App() {
                 >
                   {items.map(code => <option key={code} value={code}>{code}</option>)}
                 </select>
-                <div className="h-8 w-px bg-slate-100 mx-2" />
-                <div className="flex flex-col">
-                  <span className="text-sm font-bold text-teal">Comparative (ML vs TS vs Champion)</span>
-                </div>
-                <button
-                  onClick={() => handleGenerateForecast()}
-                  className="ml-auto bg-teal text-white py-2 px-6 rounded-lg font-bold text-sm shadow-lg shadow-teal/20 hover:scale-105 active:scale-95 transition-all"
-                >
-                  Generate Forecast
-                </button>
               </div>
 
 
