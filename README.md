@@ -2,12 +2,13 @@
 
 <div align="center">
 
-![Indi4 Logo](frontend/public/logo.png)
+![KPCL Logo](frontend/public/logo.png)
 
 **AI-Powered Weekly Demand Forecasting for ACR SPARES**  
-Kirloskar Pneumatic Co. Ltd. | Production-Ready Deployment on Railway
+Kirloskar Pneumatic Co. Ltd. | Deployed on Railway (Backend) & Vercel (Frontend)
 
-[![Live App](https://img.shields.io/badge/Live_App-Railway-brightgreen?style=for-the-badge)](https://web-production-4bd43.up.railway.app/)
+[![Live App](https://img.shields.io/badge/Live_App-Vercel-black?style=for-the-badge&logo=vercel)](https://kpcl-selected-item-forecasting.vercel.app/)
+[![Backend API](https://img.shields.io/badge/Backend_API-Railway-brightgreen?style=for-the-badge)](https://web-production-4bd43.up.railway.app/)
 [![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.111-teal?style=for-the-badge)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge)](https://react.dev)
@@ -20,7 +21,7 @@ Kirloskar Pneumatic Co. Ltd. | Production-Ready Deployment on Railway
 
 This project delivers a **production-ready AI forecasting system** for KPCL's spare parts demand planning. It combines classical time series models (AR, MA, SARIMA, Prophet) with ML-based approaches (XGBoost, Random Forest) to forecast weekly spare part quantities for **8 priority items** from the ACR SPARES model range.
 
-The system surfaces forecasts through a modern web dashboard, a live Dash analytics panel, and a REST API — all deployed as a single service on Railway.
+The system surfaces forecasts through a modern React web dashboard, a live Dash analytics panel, and a REST API — deployed as **two separate services**: the React frontend on Vercel and the FastAPI/Dash backend on Railway.
 
 ---
 
@@ -53,25 +54,36 @@ The system surfaces forecasts through a modern web dashboard, a live Dash analyt
 
 ## 🏗️ System Architecture
 
+### Production (Separated Deployment)
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                    KPCL Forecasting Platform                      │
+│                                                                   │
+│   ┌──────────────────────┐         ┌──────────────────────────┐  │
+│   │  React Frontend       │  HTTPS  │  FastAPI Backend          │  │
+│   │  (Vercel)             │────────▶│  (Railway)               │  │
+│   │                       │  /api/* │                          │  │
+│   │  VITE_API_BASE_URL    │         │  /api/*  → FastAPI       │  │
+│   │  = Railway URL        │         │  /analytics/ → Dash      │  │
+│   └──────────────────────┘         │  /docs   → Swagger UI    │  │
+│                                    └──────────────────────────┘  │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+### Local Development
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    KPCL Forecasting Platform                 │
+│                    Local Dev Environment                     │
 │                                                             │
 │  ┌────────────────┐   ┌──────────────┐   ┌────────────────┐  │
 │  │ React Frontend │   │ FastAPI      │   │ Dash Analytics │  │
-│  │ (in /frontend) │   │ Backend API  │   │ (in /backend)  │  │
-│  │ localhost:5173 │   │ localhost:8000 │  │ localhost:8050 │  │
+│  │ localhost:5173 │   │ localhost:8000│   │ localhost:8050 │  │
 │  └──────┬─────────┘   └──────┬───────┘   └───────┬────────┘  │
 │         │                    │                   │            │
 │         └────────────────────┴───────────────────┘            │
 │                    Vite Proxy (local dev)                    │
-│                                                             │
-│  ══════════════════[ Production: Railway ]═════════════════ │
-│  Single process (via backend/api/main.py) serves all:        │
-│  /api/*         → FastAPI endpoints                         │
-│  /analytics/    → Dash (WSGIMiddleware)                     │
-│  /*             → React dist (StaticFiles)                  │
-│  All data resides in /data and /models root folders.        │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -138,7 +150,7 @@ kpcl_selected_item_forecasting/
 │
 ├── frontend/                 ← React web application
 │   ├── src/App.jsx           ← Main interface logic
-│   ├── dist/                 ← Production build (StaticFiles source)
+│   ├── dist/                 ← Production build (served by Railway in dev)
 │   └── vite.config.js        ← Dev server + proxy config
 │
 ├── data/
@@ -148,19 +160,21 @@ kpcl_selected_item_forecasting/
 ├── models/                   ← Saved champion model files (.skl/.pkl)
 ├── reports/figures/          ← Static visualization exports
 │
+├── app.py                    ← Railway entry point (FastAPI + Dash)
+├── start.sh                  ← Production start command (Gunicorn)
 ├── start.ps1                 ← Local dev: Start all 3 servers
 ├── run_pipeline.ps1          ← Full 10-step ML automation
-├── requirements.txt          ← "Golden Set" dependencies
-├── app.py                    ← Deployment entry point
-└── nixpacks.toml             ← Railway environment configerence
+├── requirements.txt          ← Python dependencies
+├── nixpacks.toml             ← Railway Nixpacks build configuration
+└── railway.json              ← Railway deploy configuration
 ```
 
 ---
 
 ## ⚙️ API Reference
 
-Base URL (local): `http://localhost:8000/api`  
-Base URL (production): `https://web-production-4bd43.up.railway.app/api`
+Base URL (local): `http://localhost:8000`  
+Base URL (production): `https://web-production-4bd43.up.railway.app`
 
 | Endpoint | Method | Description |
 |---|---|---|
@@ -173,6 +187,8 @@ Base URL (production): `https://web-production-4bd43.up.railway.app/api`
 | `/api/aggregate_forecast` | GET | Portfolio-wide demand aggregate |
 | `/api/mstl/{item}` | GET | MSTL decomposition (Trend, Seasonal, Residual) |
 | `/health` | GET | Health check |
+| `/docs` | GET | Interactive Swagger UI |
+| `/analytics/` | GET | Dash analytics dashboard |
 
 ---
 
@@ -194,7 +210,7 @@ Documentation panel covering dataset overview, training/test split, feature engi
 
 ## 🏁 Getting Started (Step-by-Step)
 
-Follow these steps to set up the project on your local machine if you are starting from scratch.
+Follow these steps to set up the project on your local machine.
 
 ### 1. Prerequisites
 Ensure you have the following installed:
@@ -204,12 +220,12 @@ Ensure you have the following installed:
 
 ### 2. Clone the Repository
 ```bash
-git clone https://github.com/adeebanoorr/Demand-Forecasting-for-KPCL-spare-parts.git
-cd Demand-Forecasting-for-KPCL-spare-parts
+git clone https://github.com/adeebanoorr/Demand-Forecasting-for-spare-parts.git
+cd Demand-Forecasting-for-spare-parts
 ```
 
 ### 3. Backend Environment Setup
-Create a virtual environment to isolate the project dependencies:
+Create a virtual environment to isolate project dependencies:
 ```powershell
 # Create environment
 python -m venv myenv
@@ -222,7 +238,7 @@ pip install -r requirements.txt
 ```
 
 ### 4. Frontend Environment Setup
-Navigate to the frontend folder and install the web dependencies:
+Navigate to the frontend folder and install web dependencies:
 ```powershell
 cd frontend
 npm install
@@ -230,13 +246,13 @@ cd ..
 ```
 
 ### 5. Initialize the ML Models
-The project requires pre-trained models and processed data to function. Run the full automation pipeline (takes ~10-15 minutes):
+Run the full automation pipeline to generate pre-trained models and processed data (takes ~10–15 minutes):
 ```powershell
 .\run_pipeline.ps1
 ```
 
 ### 6. Launch the Application
-Once the pipeline is complete, start the integrated server environment:
+Once the pipeline is complete, start the integrated local server environment:
 ```powershell
 .\start.ps1
 ```
@@ -245,10 +261,6 @@ The application will be available at **`http://localhost:5173`**.
 ---
 
 ## 🚀 Local Development Reference
-
-### Prerequisites
-- Python 3.11+, Node.js 18+
-- Virtual environment activated with `requirements.txt` installed
 
 ### Start All Servers
 ```powershell
@@ -263,7 +275,7 @@ This launches three servers in separate windows:
 | FastAPI Backend | http://localhost:8000 | REST API + Swagger UI at `/docs` |
 | React Frontend | http://localhost:5173 | Main web app (Vite + proxy) |
 
-The Vite dev server proxies `/analytics/` → `:8050` and `/api` → `:8000`, so the app works seamlessly from a single origin.
+The Vite dev server proxies `/analytics/` → `:8050` and `/api` → `:8000`, so the app works seamlessly from a single origin during development.
 
 ### Run the Full ML Pipeline
 ```powershell
@@ -276,7 +288,7 @@ Steps:
 3. **ML Comparison**: Scores XGBoost, Random Forest, etc. (RMSE).
 4. **ML Training**: Trains the champion Classical ML model.
 5. **TS Comparison**: Scores AR, MA, Prophet, ARIMA (RMSE).
-6. **Auto-SARIMA**: Exhaustive seasonal parameter search (optimized).
+6. **Auto-SARIMA**: Exhaustive seasonal parameter search.
 7. **ML Validation**: Generates hold-out sets for ML models.
 8. **SARIMA Validation**: Generates hold-out sets for Auto-SARIMA.
 9. **Final Forecast**: Produces 12-week output for the dashboard.
@@ -284,63 +296,75 @@ Steps:
 
 ---
 
-## ☁️ Production Deployment (Railway)
+## ☁️ Production Deployment
 
 ### Architecture
-A single Railway service runs the FastAPI app which:
-- Mounts the Dash WSGI app at `/analytics`
-- Serves the pre-built React `dist/` as static files at `/`
-- Exposes all `/api/*` endpoints
+The application is deployed as **two separate services**:
 
-### Deploy
+| Service | Platform | URL |
+|---|---|---|
+| **React Frontend** | Vercel | https://kpcl-selected-item-forecasting.vercel.app/ |
+| **FastAPI + Dash Backend** | Railway | https://web-production-4bd43.up.railway.app/ |
+
+The frontend uses the `VITE_API_BASE_URL` environment variable to point to the Railway backend. CORS is enabled on the backend to allow cross-origin requests from the Vercel domain.
+
+### Deploy Backend (Railway)
 ```bash
-git push origin main   # Railway auto-deploys on push
+git push origin main   # Railway auto-deploys on push via nixpacks.toml
 ```
 
-### Update Frontend (after UI changes)
+Railway runs:
+```bash
+gunicorn app:app --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
+```
+
+### Deploy Frontend (Vercel)
+Vercel auto-deploys from the `frontend/` directory on every push to `main`.  
+Set the following environment variable in the Vercel dashboard:
+
+| Key | Value |
+|---|---|
+| `VITE_API_BASE_URL` | `https://web-production-4bd43.up.railway.app` |
+
+To manually trigger a rebuild after frontend changes:
 ```powershell
 cd frontend
-npm run build
+npm run build    # verify locally
 cd ..
-git add -f frontend/dist
-git commit -m "Production update: <description>"
+git add frontend/
+git commit -m "Frontend update: <description>"
 git push origin main
 ```
 
-### Environment Variables (Railway Dashboard)
+### Railway Environment Variables
 | Key | Value |
 |---|---|
 | `PORT` | Set automatically by Railway |
 | `RAILWAY_ENVIRONMENT` | Set automatically — used to switch Dash routing mode |
-
-### URLs
-| Resource | URL |
-|---|---|
-| Main App | https://web-production-4bd43.up.railway.app/ |
-| Analytics | https://web-production-4bd43.up.railway.app/analytics/ |
-| API Docs | https://web-production-4bd43.up.railway.app/docs |
 
 ---
 
 ## 📦 Core Technology Stack
 
 ### Backend (Python)
-*   **FastAPI**: High-performance web framework for the REST API.
-*   **Statsmodels**: Used for classical time series models (AR, MA, ARIMA, SARIMA, MSTL).
-*   **Prophet**: Meta's forecasting tool for handling strong seasonality and holidays.
-*   **Scikit-Learn / XGBoost**: Used for Machine Learning based forecasting (Random Forest, Gradient Boosting).
-*   **Pandas/Numpy**: The backbone for all data manipulation and numerical processing.
+*   **FastAPI**: High-performance REST API framework.
+*   **Statsmodels**: Classical time series models (AR, MA, ARIMA, SARIMA, MSTL).
+*   **Prophet**: Meta's forecasting library for strong seasonality patterns.
+*   **Scikit-Learn / XGBoost**: ML-based forecasting (Random Forest, Gradient Boosting).
+*   **Pandas / NumPy**: Data manipulation and numerical processing.
+*   **Dash / Plotly**: Integrated analytics dashboard for revenue reporting.
+*   **Gunicorn + Uvicorn**: ASGI/WSGI production server for Railway.
 
 ### Frontend (JavaScript/React)
-*   **React + Vite**: Modern, ultra-fast frontend framework and build tool.
-*   **Recharts**: Interactive charting library used for the dynamic forecast and MSTL plots.
-*   **Tailwind CSS**: Utility-first CSS framework for the dashboard's premium enterprise look.
-*   **Lucide React**: Clean and consistent iconography.
+*   **React + Vite**: Modern, fast frontend framework and build tool.
+*   **Recharts**: Interactive charting for dynamic forecast and MSTL plots.
+*   **Tailwind CSS**: Utility-first CSS framework for the enterprise dashboard UI.
+*   **Lucide React**: Consistent icon library.
 
-### Analytics & Deployment
-*   **Dash/Plotly**: Integrated for deeper statistical reporting and revenue analytics.
-*   **Railway**: Cloud platform for unified hosting of the API and Web App.
-*   **Vercel**: Optimized hosting for the React frontend.
+### Hosting & Deployment
+*   **Railway**: Cloud hosting for the FastAPI + Dash backend.
+*   **Vercel**: Optimized static hosting for the React frontend.
+*   **Nixpacks**: Automatic build configuration for Railway deployments.
 
 ---
 
