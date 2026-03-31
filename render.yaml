@@ -16,12 +16,12 @@ services:
   # --- Frontend Static Site ---
   - type: web
     name: kpcl-frontend
-    env: static
+    runtime: static
     repo: https://github.com/adeebanoorr/Demand-Forecasting-for-spare-parts
     branch: main
     rootDir: frontend
     buildCommand: npm install && npm run build
-    publishDir: dist
+    staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
         fromService:
