@@ -1,0 +1,30 @@
+services:
+  # --- Backend Web Service ---
+  - type: web
+    name: kpcl-backend
+    env: docker
+    repo: https://github.com/adeebanoorr/Demand-Forecasting-for-spare-parts
+    branch: main
+    plan: free # Can be changed to 'starter' if more RAM is needed
+    region: oregon # Matching the user's screenshot
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: ALLOWED_ORIGINS
+        value: "*" # Update this with the frontend URL after deployment
+
+  # --- Frontend Static Site ---
+  - type: static
+    name: kpcl-frontend
+    env: static
+    repo: https://github.com/adeebanoorr/Demand-Forecasting-for-spare-parts
+    branch: main
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    publishDir: dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: kpcl-backend
+          property: host
