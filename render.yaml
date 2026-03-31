@@ -24,7 +24,4 @@ services:
     staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
-        fromService:
-          type: web
-          name: kpcl-backend
-          property: host
+        value: https://kpcl-backend.onrender.com/api
