@@ -14,7 +14,7 @@ services:
         value: "*" # Update this with the frontend URL after deployment
 
   # --- Frontend Static Site ---
-  - type: static
+  - type: web
     name: kpcl-frontend
     env: static
     repo: https://github.com/adeebanoorr/Demand-Forecasting-for-spare-parts
