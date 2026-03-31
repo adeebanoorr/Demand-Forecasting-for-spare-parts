@@ -202,7 +202,6 @@ cython_debug/
 myenv/
 .agents/
 .gemini/
-/chatbot/
 *.webp
 *.png
 *.jpg
