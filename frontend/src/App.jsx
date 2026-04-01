@@ -25,7 +25,7 @@ import {
   Cpu
 } from 'lucide-react';
 
-const API_BASE = import.meta.env.VITE_API_URL || "/api";
+const API_BASE = import.meta.env.VITE_API_URL || "/api/v1";
 const ANALYTICS_URL = import.meta.env.VITE_ANALYTICS_URL || "/analytics/";
 
 // --- Analysis Page Component (MSTL Decomposition Charts) ---
@@ -39,7 +39,7 @@ const AnalysisPage = ({ items, selectedItem, setSelectedItem }) => {
     if (!mstlItem) return;
     setMstlLoading(true);
     setMstlError(null);
-    fetch(`${API_BASE}/mstl/${encodeURIComponent(mstlItem)}`)
+    fetch(`${API_BASE}/forecast/mstl/${encodeURIComponent(mstlItem)}`)
       .then(r => r.ok ? r.json() : r.text().then(t => Promise.reject(t)))
       .then(d => { setMstlData(d); setMstlLoading(false); })
       .catch(e => { setMstlError(String(e)); setMstlLoading(false); });
@@ -195,26 +195,27 @@ export default function App() {
   useEffect(() => {
     // Items
     fetch(`${API_BASE}/items`)
-      .then(res => res.json())
+      .then(res => res.ok ? res.json() : [])
       .then(data => {
-        setItems(data);
-        if (data.length > 0) setSelectedItem(data[0]);
+        const itemsList = Array.isArray(data) ? data : [];
+        setItems(itemsList);
+        if (itemsList.length > 0) setSelectedItem(itemsList[0]);
         setLoading(prev => ({ ...prev, items: false }));
       });
 
     // Global Metrics
-    fetch(`${API_BASE}/global_metrics`)
-      .then(res => res.json())
+    fetch(`${API_BASE}/metrics/global/stat`)
+      .then(res => res.ok ? res.json() : null)
       .then(data => {
-        setGlobalMetrics(data);
+        if (data) setGlobalMetrics(data);
         setLoading(prev => ({ ...prev, global: false }));
       });
 
     // Portfolio Demand Aggregate
-    fetch(`${API_BASE}/aggregate_forecast`)
-      .then(res => res.json())
+    fetch(`${API_BASE}/forecast/aggregate`)
+      .then(res => res.ok ? res.json() : [])
       .then(data => {
-        setAggregateForecast(data);
+        setAggregateForecast(Array.isArray(data) ? data : []);
         setLoading(prev => ({ ...prev, aggregate: false }));
       })
       .catch(err => {
@@ -231,14 +232,14 @@ export default function App() {
     try {
       const [mRes, cRes, compRes, valRes] = await Promise.all([
         fetch(`${API_BASE}/metrics/${itemCode}`).then(r => r.json()),
-        fetch(`${API_BASE}/comparison/${itemCode}`).then(r => r.json()),
-        fetch(`${API_BASE}/forecast_comparison/${itemCode}`).then(r => r.json()),
-        fetch(`${API_BASE}/validation/${itemCode}`).then(r => r.ok ? r.json() : null).catch(() => null)
+        fetch(`${API_BASE}/metrics/comparison/${itemCode}`).then(r => r.json()),
+        fetch(`${API_BASE}/forecast/comparison/${itemCode}`).then(r => r.json()),
+        fetch(`${API_BASE}/metrics/validation/${itemCode}`).then(r => r.ok ? r.json() : null).catch(() => null)
       ]);
-      setMetrics(mRes);
-      setComparison(cRes);
-      setForecast(compRes.data);
-      setModelNames(compRes.models);
+      setMetrics(mRes || null);
+      setComparison(cRes || { ml: [], ts: [] });
+      setForecast(compRes?.data || []);
+      setModelNames(compRes?.models || { champion: 'Champion', ml: 'Best ML', ts: 'Best TS' });
       setValidation(valRes?.data || []);
     } catch (e) {
       console.error(e);
@@ -692,7 +693,7 @@ export default function App() {
                     <FileText size={18} /> Validation Report
                   </button>
                   <button
-                    onClick={() => window.open(`${API_BASE}/download/comparison`, '_blank')}
+                    onClick={() => window.open(`${API_BASE}/download/comparison/summary`, '_blank')}
                     className="flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 rounded-xl font-bold text-sm transition-all"
                   >
                     <PieChart size={18} /> Comparison CSV

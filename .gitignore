@@ -209,3 +209,4 @@ myenv/
 !/frontend/public/*.jpg
 !/frontend/public/*.svg
 !reports/figures/
+/chatbot/
