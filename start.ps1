@@ -1,39 +1,31 @@
-# KPCL Forecasting App - Start All Servers
-# Run from project root: .\start.ps1
+# KPCL Forecasting App - Start Local Development Environment
 
 $PROJECT_ROOT = Split-Path -Parent $MyInvocation.MyCommand.Definition
-$PYTHON = "$PROJECT_ROOT\myenv\Scripts\python.exe"
-$WEBAPP_DIR = "$PROJECT_ROOT\frontend"
+Set-Location $PROJECT_ROOT
+
+Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "  KPCL Forecasting - Server Launcher" -ForegroundColor Cyan
+Write-Host "========================================" -ForegroundColor Cyan
+
+# 1. Start Python Backend & Dashboard
+Write-Host "Launching Backend API and Analytics Dashboard..." -ForegroundColor Yellow
+$PYTHON_CMD = "python"
+if (Test-Path "$PROJECT_ROOT\myenv\Scripts\python.exe") {
+    $PYTHON_CMD = "$PROJECT_ROOT\myenv\Scripts\python.exe"
+}
+
+Start-Process powershell.exe -ArgumentList "-NoExit -Command `"& $PYTHON_CMD app.py`"" -WindowStyle Normal
+
+# 2. Start React Frontend
+Write-Host "Launching React Frontend..." -ForegroundColor Yellow
+if (Test-Path "$PROJECT_ROOT\frontend") {
+    Start-Process powershell.exe -ArgumentList "-NoExit -Command `"cd '$PROJECT_ROOT\frontend'; npm run dev`"" -WindowStyle Normal
+}
 
 Write-Host ""
-Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "  KPCL Spare Parts Forecasting App" -ForegroundColor Cyan
-Write-Host "  Starting all servers..." -ForegroundColor Cyan
-Write-Host "========================================" -ForegroundColor Cyan
-Write-Host ""
-
-# 1. Dash Performance Dashboard (port 8050)
-Write-Host "[1/3] Starting Dash Dashboard  -> http://localhost:8050" -ForegroundColor Yellow
-Start-Process powershell -ArgumentList "-NoExit", "-Command", `
-    "Set-Location '$PROJECT_ROOT'; Write-Host 'Dash Dashboard - port 8050' -ForegroundColor Yellow; & '$PYTHON' backend/visualization/dashboard.py"
-
-Start-Sleep -Seconds 2
-
-# 2. FastAPI Backend (port 8000)
-Write-Host "[2/3] Starting FastAPI Backend -> http://localhost:8000" -ForegroundColor Green
-Start-Process powershell -ArgumentList "-NoExit", "-Command", `
-    "Set-Location '$PROJECT_ROOT'; Write-Host 'FastAPI Backend - port 8000' -ForegroundColor Green; & '$PYTHON' -m uvicorn backend.api.main:app --host 0.0.0.0 --port 8000 --reload"
-
-Start-Sleep -Seconds 2
-
-# 3. Vite React Frontend (port 5173)
-Write-Host "[3/3] Starting React Frontend  -> http://localhost:5173" -ForegroundColor Magenta
-Start-Process powershell -ArgumentList "-NoExit", "-Command", `
-    "Set-Location '$WEBAPP_DIR'; Write-Host 'React Frontend - port 5173' -ForegroundColor Magenta; npx vite --host 0.0.0.0 --port 5173"
-
-Write-Host ""
-Write-Host "========================================" -ForegroundColor Cyan
-Write-Host "  All servers launching in new windows!" -ForegroundColor Cyan
-Write-Host "  Open: http://localhost:5173" -ForegroundColor White
-Write-Host "========================================" -ForegroundColor Cyan
+Write-Host "Servers are starting in new windows." -ForegroundColor Green
+Write-Host "You can view the app at:" -ForegroundColor White
+Write-Host "-> Frontend: http://localhost:5173" -ForegroundColor Cyan
+Write-Host "-> Backend:  http://localhost:8000" -ForegroundColor Cyan
+Write-Host "-> Dash:     http://localhost:8050" -ForegroundColor Cyan
 Write-Host ""
