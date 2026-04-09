@@ -608,7 +608,7 @@ guard = gd.Guard.for_pydantic(output_class=SparePartsAnalysis)
 # =============================================================================
 # LLM & PROMPT (NVIDIA integration)
 # =============================================================================
-NVIDIA_API_KEY = "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"
+NVIDIA_API_KEY = os.getenv("NVIDIA_API_KEY")
 nvidia_client = OpenAI(
     base_url="https://integrate.api.nvidia.com/v1",
     api_key=NVIDIA_API_KEY
