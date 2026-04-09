@@ -1,0 +1,670 @@
+
+[2026-04-07 12:39:26] SESSION: default_user
+USER: What was the total revenue in 2023?
+BOT: 1,107,047,980.91
+--------------------------------------------------
+
+[2026-04-07 12:53:49] SESSION: default_user
+USER: total no. of unique item code?
+BOT: 2,152
+--------------------------------------------------
+
+[2026-04-07 12:54:26] SESSION: default_user
+USER: total no. of unique item code?
+BOT: 2,152
+--------------------------------------------------
+
+[2026-04-07 12:54:31] SESSION: default_user
+USER: Most sold item in 2023?
+BOT: 3510901450
+--------------------------------------------------
+
+[2026-04-07 13:19:54] SESSION: default_user
+USER: What was the total revenue in 2023?
+BOT: 1,107,047,980.91
+--------------------------------------------------
+
+[2026-04-07 14:19:00] SESSION: default_user
+USER: are you using caching
+BOT: I am specialized only in spare parts analysis.
+--------------------------------------------------
+
+[2026-04-07 14:24:23] SESSION: default_user
+USER: Which year had the highest revenue?
+BOT: 2023
+--------------------------------------------------
+
+[2026-04-07 14:24:26] SESSION: default_user
+USER: What are the top 10 spare parts by quantity?
+BOT: 
+|   ITEM_CODE_CLEAN |   QTY |
+|-------------------|-------|
+|        3510901450 | 60480 |
+|        0820315050 | 55242 |
+|        0820405050 | 51804 |
+|        3361200150 | 46878 |
+|        3361000950 | 39565 |
+|        0820403050 | 29245 |
+|        0820600050 | 27965 |
+|        0822813050 | 27785 |
+|        0820302050 | 27232 |
+|        0820402050 | 24307 |
+--------------------------------------------------
+
+[2026-04-07 14:24:28] SESSION: default_user
+USER: Who is the top customer by quantity in 2024?
+BOT: 
+| CUSTOMER_NAME_CLEAN                                |     QTY |
+|----------------------------------------------------|---------|
+| kalp marketing                                     | 30428   |
+| gargi engineering enterprises pvt.ltd. - mumbai    | 26533   |
+| multivista global private limited - agra           | 24883   |
+| trade links (sec)                                  | 23187   |
+| parag marketing services                           | 18693   |
+| multivista global pvt ltd-delhi                    | 15631   |
+| talsales private ltd                               | 14512   |
+| multivista global pvt ltd.- lucknow                | 11846   |
+| model pneumatic co.                                | 11166   |
+| pragyaa industrial supply                          | 10014   |
+| controllerate of procurement                       |  9416   |
+| geekay pneumatics pvt ltd                          |  9113   |
+| m/s. robin refrigeration works                     |  8932   |
+| multivista global pvt ltd                          |  8101   |
+| hss solutions pvt. ltd                             |  7684   |
+| s. b. refrigeration services                       |  5838   |
+| trade links (goa)                                  |  3806   |
+| trade links - ongole                               |  3421   |
+| m/s. dicksons engineering company pvt. ltd.        |  2288   |
+| parag marketing services - chhattisgarh            |  2009   |
+| controller of procurement                          |  1669   |
+| multivista global private limited - rudrapur       |   846   |
+| controller of procurement karwar                   |   765.9 |
+| multivista global pvt ltd. - gurgaon               |   640   |
+| cool comfort private limited                       |   492   |
+| ship building centre                               |   260   |
+| hpcl-mittal energy limited                         |   119   |
+| gargi engineering enterprises pvt.ltd. - vadodara  |    92   |
+| mangalore refinery and petrochemicals limited      |    64   |
+| oil and natural gas corporation limited            |    62   |
+| indian oil corporation limited                     |    47   |
+| reliance industries ltd                            |    44   |
+| united breweries ltd                               |    33   |
+| gail mangalore petrochemicals limited              |    32   |
+| kirloskar pneumatic co. ltd-delhi                  |    32   |
+| grasim industries ltd                              |    31   |
+| indian oil corpn ltd , mathura                     |    30   |
+| chennai petroleum corporation ltd                  |    26   |
+| nestle india limited                               |    26   |
+| shv energy private limited                         |    18   |
+| gail (india) limited                               |    16   |
+| hindustan urvarak & rasayan limited                |    14   |
+| kirloskar pneumatic co. ltd.                       |    14   |
+| brahmaputra cracker & polymer ltd                  |    13   |
+| godavari mega aqua food park pvt ltd               |    12   |
+| parth engineering                                  |    12   |
+| bharat petroleum corporation ltd                   |    11   |
+| m/s teva api india private ltd                     |    11   |
+| m/s wartsila india private limited                 |    11   |
+| bengal beverages (p) limited                       |    10   |
+| hindustan petroleum corpn g - visakh               |    10   |
+| m/s.primo chemicals limited (earlier name - punjab |    10   |
+| albys agro pvt. ltd.                               |     9   |
+| hindustan unilever ltd.                            |     9   |
+| m/s gail (india ) limited.                         |     9   |
+| hikal ltd                                          |     8   |
+| jai beverages private limited unit-ii              |     8   |
+| tumkur co operative milk producers societies union |     8   |
+| mother dairy fruit & vegetable pvt. ltd.           |     7   |
+| mundra lpg terminal private limited                |     7   |
+| carlsberg india pvt.ltd.                           |     6   |
+| indianoil petronas pvt. ltd.                       |     6   |
+| mahadhan agritech limited (earlier name - smartche |     6   |
+| naval dockyard (vizag)                             |     6   |
+| nirma limited                                      |     6   |
+| varun beverages ltd                                |     6   |
+| addcool trade & services                           |     5   |
+| a s eneterprise                                    |     4   |
+| blue-earth food processing private limited         |     4   |
+| sheet hvac services                                |     4   |
+| gujarat fluorochemicals ltd.                       |     3   |
+| m/s sri ganganagar zila dugdh utpadak sahakari san |     3   |
+| the ferozepur district coop milk producers union l |     3   |
+| gargi engineering enterprises pvt.ltd              |     2   |
+| gujarat alkalies & chemicals ltd                   |     2   |
+| idmc ltd                                           |     2   |
+| india pesticides limited                           |     2   |
+| linde india ltd.                                   |     2   |
+| m/s uday cold storage and ice plant pvt. ltd       |     2   |
+| sai krishna cold storage llp                       |     2   |
+| som distilleries and breweries ltd                 |     2   |
+| tgv sraac limited.                                 |     2   |
+| the bangalore urban and rural dist. co-op society  |     2   |
+| c. p. milk and food products pvt ltd               |     1   |
+| c.p cold storage private limited.                  |     1   |
+| fair exports (india) pvt. ltd                      |     1   |
+| indian oil cororation ltd                          |     1   |
+| jamuna ram cold storage                            |     1   |
+| kolhapur zilla sahakari dudh utpadak sangh limited |     1   |
+| laxmi foods and storages pvt ltd                   |     1   |
+| m/s bharat cold storage pvt. ltd                   |     1   |
+| m/s harihar cold storage                           |     1   |
+| m/s raghupati cold storage pvt. ltd                |     1   |
+| m/s sagun cold storage & ice plant                 |     1   |
+| m/s sarabjit cold storage pvt ltd                  |     1   |
+| m/s. naaj cold storage                             |     1   |
+| ongc petro additions limited                       |     1   |
+| sajjan india limited                               |     1   |
+| shri balaji preservers private limited             |     1   |
+| united farm product private limited                |     1   |
+| varun beverages limited                            |     1   |
+--------------------------------------------------
+
+[2026-04-07 14:24:44] SESSION: default_user
+USER: Who is the best customer by quantity in 2024?
+BOT: 
+| CUSTOMER_NAME_CLEAN                                |     QTY |
+|----------------------------------------------------|---------|
+| kalp marketing                                     | 30428   |
+| gargi engineering enterprises pvt.ltd. - mumbai    | 26533   |
+| multivista global private limited - agra           | 24883   |
+| trade links (sec)                                  | 23187   |
+| parag marketing services                           | 18693   |
+| multivista global pvt ltd-delhi                    | 15631   |
+| talsales private ltd                               | 14512   |
+| multivista global pvt ltd.- lucknow                | 11846   |
+| model pneumatic co.                                | 11166   |
+| pragyaa industrial supply                          | 10014   |
+| controllerate of procurement                       |  9416   |
+| geekay pneumatics pvt ltd                          |  9113   |
+| m/s. robin refrigeration works                     |  8932   |
+| multivista global pvt ltd                          |  8101   |
+| hss solutions pvt. ltd                             |  7684   |
+| s. b. refrigeration services                       |  5838   |
+| trade links (goa)                                  |  3806   |
+| trade links - ongole                               |  3421   |
+| m/s. dicksons engineering company pvt. ltd.        |  2288   |
+| parag marketing services - chhattisgarh            |  2009   |
+| controller of procurement                          |  1669   |
+| multivista global private limited - rudrapur       |   846   |
+| controller of procurement karwar                   |   765.9 |
+| multivista global pvt ltd. - gurgaon               |   640   |
+| cool comfort private limited                       |   492   |
+| ship building centre                               |   260   |
+| hpcl-mittal energy limited                         |   119   |
+| gargi engineering enterprises pvt.ltd. - vadodara  |    92   |
+| mangalore refinery and petrochemicals limited      |    64   |
+| oil and natural gas corporation limited            |    62   |
+| indian oil corporation limited                     |    47   |
+| reliance industries ltd                            |    44   |
+| united breweries ltd                               |    33   |
+| gail mangalore petrochemicals limited              |    32   |
+| kirloskar pneumatic co. ltd-delhi                  |    32   |
+| grasim industries ltd                              |    31   |
+| indian oil corpn ltd , mathura                     |    30   |
+| chennai petroleum corporation ltd                  |    26   |
+| nestle india limited                               |    26   |
+| shv energy private limited                         |    18   |
+| gail (india) limited                               |    16   |
+| hindustan urvarak & rasayan limited                |    14   |
+| kirloskar pneumatic co. ltd.                       |    14   |
+| brahmaputra cracker & polymer ltd                  |    13   |
+| godavari mega aqua food park pvt ltd               |    12   |
+| parth engineering                                  |    12   |
+| bharat petroleum corporation ltd                   |    11   |
+| m/s teva api india private ltd                     |    11   |
+| m/s wartsila india private limited                 |    11   |
+| bengal beverages (p) limited                       |    10   |
+| hindustan petroleum corpn g - visakh               |    10   |
+| m/s.primo chemicals limited (earlier name - punjab |    10   |
+| albys agro pvt. ltd.                               |     9   |
+| hindustan unilever ltd.                            |     9   |
+| m/s gail (india ) limited.                         |     9   |
+| hikal ltd                                          |     8   |
+| jai beverages private limited unit-ii              |     8   |
+| tumkur co operative milk producers societies union |     8   |
+| mother dairy fruit & vegetable pvt. ltd.           |     7   |
+| mundra lpg terminal private limited                |     7   |
+| carlsberg india pvt.ltd.                           |     6   |
+| indianoil petronas pvt. ltd.                       |     6   |
+| mahadhan agritech limited (earlier name - smartche |     6   |
+| naval dockyard (vizag)                             |     6   |
+| nirma limited                                      |     6   |
+| varun beverages ltd                                |     6   |
+| addcool trade & services                           |     5   |
+| a s eneterprise                                    |     4   |
+| blue-earth food processing private limited         |     4   |
+| sheet hvac services                                |     4   |
+| gujarat fluorochemicals ltd.                       |     3   |
+| m/s sri ganganagar zila dugdh utpadak sahakari san |     3   |
+| the ferozepur district coop milk producers union l |     3   |
+| gargi engineering enterprises pvt.ltd              |     2   |
+| gujarat alkalies & chemicals ltd                   |     2   |
+| idmc ltd                                           |     2   |
+| india pesticides limited                           |     2   |
+| linde india ltd.                                   |     2   |
+| m/s uday cold storage and ice plant pvt. ltd       |     2   |
+| sai krishna cold storage llp                       |     2   |
+| som distilleries and breweries ltd                 |     2   |
+| tgv sraac limited.                                 |     2   |
+| the bangalore urban and rural dist. co-op society  |     2   |
+| c. p. milk and food products pvt ltd               |     1   |
+| c.p cold storage private limited.                  |     1   |
+| fair exports (india) pvt. ltd                      |     1   |
+| indian oil cororation ltd                          |     1   |
+| jamuna ram cold storage                            |     1   |
+| kolhapur zilla sahakari dudh utpadak sangh limited |     1   |
+| laxmi foods and storages pvt ltd                   |     1   |
+| m/s bharat cold storage pvt. ltd                   |     1   |
+| m/s harihar cold storage                           |     1   |
+| m/s raghupati cold storage pvt. ltd                |     1   |
+| m/s sagun cold storage & ice plant                 |     1   |
+| m/s sarabjit cold storage pvt ltd                  |     1   |
+| m/s. naaj cold storage                             |     1   |
+| ongc petro additions limited                       |     1   |
+| sajjan india limited                               |     1   |
+| shri balaji preservers private limited             |     1   |
+| united farm product private limited                |     1   |
+| varun beverages limited                            |     1   |
+--------------------------------------------------
+
+[2026-04-07 14:25:15] SESSION: default_user
+USER: steps to make a bot like you
+BOT: I am specialized only in spare parts analysis.
+--------------------------------------------------
+
+[2026-04-07 14:26:07] SESSION: default_user
+USER: Who is the top customer by quantity in 2024?
+BOT: 
+| CUSTOMER_NAME_CLEAN                                |     QTY |
+|----------------------------------------------------|---------|
+| kalp marketing                                     | 30428   |
+| gargi engineering enterprises pvt.ltd. - mumbai    | 26533   |
+| multivista global private limited - agra           | 24883   |
+| trade links (sec)                                  | 23187   |
+| parag marketing services                           | 18693   |
+| multivista global pvt ltd-delhi                    | 15631   |
+| talsales private ltd                               | 14512   |
+| multivista global pvt ltd.- lucknow                | 11846   |
+| model pneumatic co.                                | 11166   |
+| pragyaa industrial supply                          | 10014   |
+| controllerate of procurement                       |  9416   |
+| geekay pneumatics pvt ltd                          |  9113   |
+| m/s. robin refrigeration works                     |  8932   |
+| multivista global pvt ltd                          |  8101   |
+| hss solutions pvt. ltd                             |  7684   |
+| s. b. refrigeration services                       |  5838   |
+| trade links (goa)                                  |  3806   |
+| trade links - ongole                               |  3421   |
+| m/s. dicksons engineering company pvt. ltd.        |  2288   |
+| parag marketing services - chhattisgarh            |  2009   |
+| controller of procurement                          |  1669   |
+| multivista global private limited - rudrapur       |   846   |
+| controller of procurement karwar                   |   765.9 |
+| multivista global pvt ltd. - gurgaon               |   640   |
+| cool comfort private limited                       |   492   |
+| ship building centre                               |   260   |
+| hpcl-mittal energy limited                         |   119   |
+| gargi engineering enterprises pvt.ltd. - vadodara  |    92   |
+| mangalore refinery and petrochemicals limited      |    64   |
+| oil and natural gas corporation limited            |    62   |
+| indian oil corporation limited                     |    47   |
+| reliance industries ltd                            |    44   |
+| united breweries ltd                               |    33   |
+| gail mangalore petrochemicals limited              |    32   |
+| kirloskar pneumatic co. ltd-delhi                  |    32   |
+| grasim industries ltd                              |    31   |
+| indian oil corpn ltd , mathura                     |    30   |
+| chennai petroleum corporation ltd                  |    26   |
+| nestle india limited                               |    26   |
+| shv energy private limited                         |    18   |
+| gail (india) limited                               |    16   |
+| hindustan urvarak & rasayan limited                |    14   |
+| kirloskar pneumatic co. ltd.                       |    14   |
+| brahmaputra cracker & polymer ltd                  |    13   |
+| godavari mega aqua food park pvt ltd               |    12   |
+| parth engineering                                  |    12   |
+| bharat petroleum corporation ltd                   |    11   |
+| m/s teva api india private ltd                     |    11   |
+| m/s wartsila india private limited                 |    11   |
+| bengal beverages (p) limited                       |    10   |
+| hindustan petroleum corpn g - visakh               |    10   |
+| m/s.primo chemicals limited (earlier name - punjab |    10   |
+| albys agro pvt. ltd.                               |     9   |
+| hindustan unilever ltd.                            |     9   |
+| m/s gail (india ) limited.                         |     9   |
+| hikal ltd                                          |     8   |
+| jai beverages private limited unit-ii              |     8   |
+| tumkur co operative milk producers societies union |     8   |
+| mother dairy fruit & vegetable pvt. ltd.           |     7   |
+| mundra lpg terminal private limited                |     7   |
+| carlsberg india pvt.ltd.                           |     6   |
+| indianoil petronas pvt. ltd.                       |     6   |
+| mahadhan agritech limited (earlier name - smartche |     6   |
+| naval dockyard (vizag)                             |     6   |
+| nirma limited                                      |     6   |
+| varun beverages ltd                                |     6   |
+| addcool trade & services                           |     5   |
+| a s eneterprise                                    |     4   |
+| blue-earth food processing private limited         |     4   |
+| sheet hvac services                                |     4   |
+| gujarat fluorochemicals ltd.                       |     3   |
+| m/s sri ganganagar zila dugdh utpadak sahakari san |     3   |
+| the ferozepur district coop milk producers union l |     3   |
+| gargi engineering enterprises pvt.ltd              |     2   |
+| gujarat alkalies & chemicals ltd                   |     2   |
+| idmc ltd                                           |     2   |
+| india pesticides limited                           |     2   |
+| linde india ltd.                                   |     2   |
+| m/s uday cold storage and ice plant pvt. ltd       |     2   |
+| sai krishna cold storage llp                       |     2   |
+| som distilleries and breweries ltd                 |     2   |
+| tgv sraac limited.                                 |     2   |
+| the bangalore urban and rural dist. co-op society  |     2   |
+| c. p. milk and food products pvt ltd               |     1   |
+| c.p cold storage private limited.                  |     1   |
+| fair exports (india) pvt. ltd                      |     1   |
+| indian oil cororation ltd                          |     1   |
+| jamuna ram cold storage                            |     1   |
+| kolhapur zilla sahakari dudh utpadak sangh limited |     1   |
+| laxmi foods and storages pvt ltd                   |     1   |
+| m/s bharat cold storage pvt. ltd                   |     1   |
+| m/s harihar cold storage                           |     1   |
+| m/s raghupati cold storage pvt. ltd                |     1   |
+| m/s sagun cold storage & ice plant                 |     1   |
+| m/s sarabjit cold storage pvt ltd                  |     1   |
+| m/s. naaj cold storage                             |     1   |
+| ongc petro additions limited                       |     1   |
+| sajjan india limited                               |     1   |
+| shri balaji preservers private limited             |     1   |
+| united farm product private limited                |     1   |
+| varun beverages limited                            |     1   |
+--------------------------------------------------
+
+[2026-04-07 14:26:14] SESSION: default_user
+USER: Most sold item in 2023?
+BOT: 3510901450
+--------------------------------------------------
+
+[2026-04-07 14:26:16] SESSION: default_user
+USER: Which year had the highest revenue?
+BOT: 2023
+--------------------------------------------------
+
+[2026-04-07 14:34:33] SESSION: default_user
+USER: What is our On-Time Dispatch % for Ahmedabad?
+BOT: 24.61% On-Time Dispatch Rate for AHMEDABAD
+--------------------------------------------------
+
+[2026-04-07 14:42:37] SESSION: default_user
+USER: What is our On-Time Dispatch % for Ahmedabad?
+BOT: 24.61% On-Time Dispatch Rate for AHMEDABAD
+--------------------------------------------------
+
+[2026-04-07 14:43:28] SESSION: default_user
+USER: Which year had the highest revenue?
+BOT: 2023
+--------------------------------------------------
+
+[2026-04-07 14:43:30] SESSION: default_user
+USER: What was the total revenue in 2023?
+BOT: 1,107,047,980.91
+--------------------------------------------------
+
+[2026-04-07 14:43:32] SESSION: default_user
+USER: What are the top 10 spare parts by quantity?
+BOT: 
+|   ITEM_CODE_CLEAN |   QTY |
+|-------------------|-------|
+|        3510901450 | 60480 |
+|        0820315050 | 55242 |
+|        0820405050 | 51804 |
+|        3361200150 | 46878 |
+|        3361000950 | 39565 |
+|        0820403050 | 29245 |
+|        0820600050 | 27965 |
+|        0822813050 | 27785 |
+|        0820302050 | 27232 |
+|        0820402050 | 24307 |
+--------------------------------------------------
+
+[2026-04-07 14:43:36] SESSION: default_user
+USER: What is our On-Time Dispatch % for Ahmedabad?
+BOT: 24.61% On-Time Dispatch Rate for AHMEDABAD
+--------------------------------------------------
+
+[2026-04-07 14:43:51] SESSION: default_user
+USER: list all unique regions
+BOT: 9
+--------------------------------------------------
+
+[2026-04-07 14:44:00] SESSION: default_user
+USER: name all 9 regions
+BOT: ahmedabad, chennai, default collector, hyderabad, kolkata, lucknow, mumbai, new delhi, pune
+--------------------------------------------------
+
+[2026-04-07 14:44:17] SESSION: default_user
+USER: name all regions
+BOT: ahmedabad, chennai, default collector, hyderabad, kolkata, lucknow, mumbai, new delhi, pune
+--------------------------------------------------
+
+[2026-04-07 14:44:35] SESSION: default_user
+USER: What is our On-Time Dispatch % for hyderabad?
+BOT: 13.26% On-Time Dispatch Rate for HYDERABAD
+--------------------------------------------------
+
+[2026-04-07 14:44:59] SESSION: default_user
+USER: What is our total On-Time Dispatch %
+BOT: 14.35% On-Time Dispatch Rate
+--------------------------------------------------
+
+[2026-04-07 15:22:56] SESSION: default_user
+USER: total revenue in 2023
+BOT: 1,107,047,980.91
+--------------------------------------------------
+
+[2026-04-07 15:22:56] SESSION: default_user
+USER: unique item codes
+BOT: 2,152
+--------------------------------------------------
+
+[2026-04-07 15:22:56] SESSION: default_user
+USER: On-Time dispatch rate for Ahmedabad
+BOT: 24.61% On-Time Dispatch Rate for AHMEDABAD
+--------------------------------------------------
+
+[2026-04-07 15:34:02] SESSION: default_user
+USER: What is our total On-Time Dispatch %
+BOT: 14.35% On-Time Dispatch Rate
+--------------------------------------------------
+
+[2026-04-07 16:08:37] SESSION: default_user
+USER: What is the average Basic Value of all invoices in Pune?
+BOT: 2
+--------------------------------------------------
+
+[2026-04-07 16:08:57] SESSION: default_user
+USER: What is the average Basic Value of all invoices in chennai?
+BOT: 1,453
+--------------------------------------------------
+
+[2026-04-08 15:11:02] SESSION: default_user
+USER: Most sold item in 2023?
+BOT: 3510901450
+--------------------------------------------------
+
+[2026-04-08 15:14:34] SESSION: default_user
+USER: What is the average unit price for parts sold in Mumbai?
+BOT: 108,332
+--------------------------------------------------
+
+[2026-04-08 15:14:56] SESSION: default_user
+USER: What was the revenue for New Delhi in 2023?
+BOT: 22,303,094.08
+--------------------------------------------------
+
+[2026-04-08 15:15:42] SESSION: default_user
+USER: show me the bottom 3 regions by dispatch performance
+BOT: 
+| REGION_CLEAN   |     QTY |
+|----------------|---------|
+| pune           |     4   |
+| lucknow        |    40   |
+| chennai        | 15117.5 |
+--------------------------------------------------
+
+[2026-04-08 15:16:07] SESSION: default_user
+USER: which region has the highest number of unique customers?
+BOT: kalp marketing
+--------------------------------------------------
+
+[2026-04-08 15:20:47] SESSION: default_user
+USER: What was the revenue for New Delhi in 2023?
+BOT: 22,303,094.08
+--------------------------------------------------
+
+[2026-04-08 15:20:47] SESSION: default_user
+USER: show me the bottom 3 regions by dispatch performance
+BOT: 
+| REGION_CLEAN      |   on_time |
+|-------------------|-----------|
+| default collector |   10.4954 |
+| hyderabad         |   13.264  |
+| chennai           |   14.7281 |
+--------------------------------------------------
+
+[2026-04-08 15:20:48] SESSION: default_user
+USER: which region has the highest number of unique customers?
+BOT: NEW DELHI
+--------------------------------------------------
+
+[2026-04-08 15:24:17] SESSION: default_user
+USER: What was the revenue for New Delhi in 2023?
+BOT: 22,303,094.08
+--------------------------------------------------
+
+[2026-04-08 15:24:17] SESSION: default_user
+USER: show me the bottom 3 regions by dispatch performance
+BOT: 
+| REGION_CLEAN      |   on_time |
+|-------------------|-----------|
+| default collector |   10.4954 |
+| hyderabad         |   13.264  |
+| chennai           |   14.7281 |
+--------------------------------------------------
+
+[2026-04-08 15:24:17] SESSION: default_user
+USER: which region has the highest number of unique customers?
+BOT: NEW DELHI
+--------------------------------------------------
+
+[2026-04-08 15:27:19] SESSION: default_user
+USER: What was the revenue for New Delhi in 2023?
+BOT: 22,303,094.08
+--------------------------------------------------
+
+[2026-04-08 15:27:19] SESSION: default_user
+USER: show me the bottom 3 regions by dispatch performance
+BOT: 
+| REGION_CLEAN      |   on_time |
+|-------------------|-----------|
+| default collector |   10.4954 |
+| hyderabad         |   13.264  |
+| chennai           |   14.7281 |
+--------------------------------------------------
+
+[2026-04-08 15:27:20] SESSION: default_user
+USER: which region has the highest number of unique customers?
+BOT: NEW DELHI
+--------------------------------------------------
+
+[2026-04-08 16:02:10] SESSION: default_user
+USER: Which region has the highest number of unique customers?
+BOT: default collector
+--------------------------------------------------
+
+[2026-04-08 16:02:10] SESSION: default_user
+USER: show me the bottom 3 regions by dispatch performance
+BOT: 
+| REGION_CLEAN   |     QTY |
+|----------------|---------|
+| pune           |     4   |
+| lucknow        |    40   |
+| chennai        | 15117.5 |
+--------------------------------------------------
+
+[2026-04-08 16:02:10] SESSION: default_user
+USER: what was the revenue for New Delhi in 2023?
+BOT: 22,303,094.08
+--------------------------------------------------
+
+[2026-04-08 16:11:21] SESSION: default_user
+USER: Which region has the highest number of unique customers?
+BOT: NEW DELHI
+--------------------------------------------------
+
+[2026-04-08 16:11:21] SESSION: default_user
+USER: show me the bottom 3 regions by dispatch performance
+BOT: 
+| REGION_CLEAN      | Rate (%)   |
+|-------------------|------------|
+| default collector | 10.50%     |
+| hyderabad         | 13.26%     |
+| chennai           | 14.73%     |
+--------------------------------------------------
+
+[2026-04-08 16:11:21] SESSION: default_user
+USER: what was the revenue for New Delhi in 2023?
+BOT: 22,303,094.08
+--------------------------------------------------
+
+[2026-04-08 16:12:20] SESSION: default_user
+USER: What was the revenue for New Delhi in 2023?
+BOT: 22,303,094.08
+--------------------------------------------------
+
+[2026-04-08 16:14:21] SESSION: default_user
+USER: What was the revenue for New Delhi in 2023?
+BOT: 22,303,094.08
+--------------------------------------------------
+
+[2026-04-08 16:20:35] SESSION: default_user
+USER: What was the revenue for New Delhi in 2023?
+BOT: 22,303,094.08
+--------------------------------------------------
+
+[2026-04-08 16:27:53] SESSION: default_user
+USER: What was the revenue for New Delhi in 2023?
+BOT: 22,303,094.08
+--------------------------------------------------
+
+[2026-04-08 16:28:01] SESSION: default_user
+USER: And what about for 2021
+BOT: 241,619,003.44
+--------------------------------------------------
+
+[2026-04-08 16:28:05] SESSION: default_user
+USER: And what about for 2022?
+BOT: 874,066,262.29
+--------------------------------------------------
+
+[2026-04-09 14:52:48] SESSION: default_user
+USER: hey
+BOT: Spare Parts Analyst ready.
+--------------------------------------------------
+
+[2026-04-09 14:53:06] SESSION: default_user
+USER: top 5 customers
+BOT: 
+| CUSTOMER_NAME_CLEAN                             |    QTY |
+|-------------------------------------------------|--------|
+| kalp marketing                                  | 105697 |
+| gargi engineering enterprises pvt.ltd. - mumbai |  98817 |
+| multivista global private limited - agra        |  86008 |
+| multivista global pvt ltd-delhi                 |  85046 |
+| trade links (sec)                               |  84190 |
+--------------------------------------------------
+
+[2026-04-09 14:55:05] SESSION: default_user
+USER: xan you write mail
+BOT: I am specialized only in spare parts analysis.
+--------------------------------------------------

@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+pandas
+langchain-community
+langchain-ollama
+guardrails-ai
+psycopg2-binary
+psycopg[binary,pool]
+langgraph
+langgraph-checkpoint-sqlite
+tabulate
+pydantic
+python-dotenv
+sqlalchemy
