@@ -36,7 +36,7 @@ DEBUG = True
 LOG_FILE = "chatbot_logs.txt"
 CACHE_FILE = "chatbot_cache.json"
 # Adjusted path to point to backend's data
-file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "backend", "spare_parts_data.csv"))
+file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "chatbot", "backend", "spare_parts_data.csv"))
 
 if not os.path.exists(file_path):
     print(f"Error: Dataset not found at {file_path}")

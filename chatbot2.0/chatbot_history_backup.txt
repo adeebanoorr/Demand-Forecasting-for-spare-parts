@@ -1,0 +1,17 @@
+
+[2026-04-09 16:05:04] SESSION: default_user
+USER: what are the top 10 customer
+BOT: 
+| CUSTOMER_NAME_CLEAN                             |      QTY |
+|-------------------------------------------------|----------|
+| kalp marketing                                  | 105697   |
+| gargi engineering enterprises pvt.ltd. - mumbai |  98817   |
+| multivista global private limited - agra        |  86008   |
+| multivista global pvt ltd-delhi                 |  85046   |
+| trade links (sec)                               |  84190   |
+| parag marketing services                        |  73110.3 |
+| talsales private ltd                            |  64786   |
+| multivista global pvt ltd                       |  42357   |
+| geekay pneumatics pvt ltd                       |  40061   |
+| pragyaa industrial supply                       |  39249   |
+--------------------------------------------------
