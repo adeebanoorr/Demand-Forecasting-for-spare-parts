@@ -9,9 +9,8 @@ import os
 
 from pathlib import Path
 
-# Production = running on Railway (WSGI mount), strips /analytics prefix
 # Local = standalone Dash server on :8050, Vite proxies /analytics/ to it
-IS_PRODUCTION = os.environ.get("RAILWAY_ENVIRONMENT") is not None
+IS_PRODUCTION = False
 
 # ==========================================
 # 1. DATA LOADING & MAPPING

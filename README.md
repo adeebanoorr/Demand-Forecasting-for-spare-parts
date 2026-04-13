@@ -5,10 +5,8 @@
 ![KPCL Logo](frontend/public/logo.png)
 
 **AI-Powered Weekly Demand Forecasting for ACR SPARES**  
-Kirloskar Pneumatic Co. Ltd. | Deployed on Railway (Backend) & Vercel (Frontend)
+Kirloskar Pneumatic Co. Ltd.
 
-[![Live App](https://img.shields.io/badge/Live_App-Vercel-black?style=for-the-badge&logo=vercel)](https://kpcl-selected-item-forecasting.vercel.app/)
-[![Backend API](https://img.shields.io/badge/Backend_API-Railway-brightgreen?style=for-the-badge)](https://web-production-4bd43.up.railway.app/)
 [![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.111-teal?style=for-the-badge)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge)](https://react.dev)
@@ -21,7 +19,7 @@ Kirloskar Pneumatic Co. Ltd. | Deployed on Railway (Backend) & Vercel (Frontend)
 
 This project delivers a **production-ready AI forecasting system** for KPCL's spare parts demand planning. It combines classical time series models (AR, MA, SARIMA, Prophet) with ML-based approaches (XGBoost, Random Forest) to forecast weekly spare part quantities for **8 priority items** from the ACR SPARES model range.
 
-The system surfaces forecasts through a modern React web dashboard, a live Dash analytics panel, and a REST API — deployed as **two separate services**: the React frontend on Vercel and the FastAPI/Dash backend on Railway.
+The system surfaces forecasts through a modern React web dashboard, a live Dash analytics panel, and a REST API — all running locally as an integrated system.
 
 ---
 
@@ -52,24 +50,6 @@ The system surfaces forecasts through a modern React web dashboard, a live Dash 
 
 ---
 
-## 🏗️ System Architecture
-
-### Production (Separated Deployment)
-
-```
-┌──────────────────────────────────────────────────────────────────┐
-│                    KPCL Forecasting Platform                      │
-│                                                                   │
-│   ┌──────────────────────┐         ┌──────────────────────────┐  │
-│   │  React Frontend       │  HTTPS  │  FastAPI Backend          │  │
-│   │  (Vercel)             │────────▶│  (Railway)               │  │
-│   │                       │  /api/* │                          │  │
-│   │  VITE_API_BASE_URL    │         │  /api/*  → FastAPI       │  │
-│   │  = Railway URL        │         │  /analytics/ → Dash      │  │
-│   └──────────────────────┘         │  /docs   → Swagger UI    │  │
-│                                    └──────────────────────────┘  │
-└──────────────────────────────────────────────────────────────────┘
-```
 
 ### Local Development
 
@@ -150,7 +130,7 @@ kpcl_selected_item_forecasting/
 │
 ├── frontend/                 ← React web application
 │   ├── src/App.jsx           ← Main interface logic
-│   ├── dist/                 ← Production build (served by Railway in dev)
+│   ├── dist/                 ← Production build (for distribution)
 │   └── vite.config.js        ← Dev server + proxy config
 │
 ├── data/
@@ -160,21 +140,17 @@ kpcl_selected_item_forecasting/
 ├── models/                   ← Saved champion model files (.skl/.pkl)
 ├── reports/figures/          ← Static visualization exports
 │
-├── app.py                    ← Railway entry point (FastAPI + Dash)
-├── start.sh                  ← Production start command (Gunicorn)
+├── app.py                    ← Integrated entry point (FastAPI + Dash)
 ├── start.ps1                 ← Local dev: Start all 3 servers
 ├── run_pipeline.ps1          ← Full 10-step ML automation
-├── requirements.txt          ← Python dependencies
-├── nixpacks.toml             ← Railway Nixpacks build configuration
-└── railway.json              ← Railway deploy configuration
+└── requirements.txt          ← Python dependencies
 ```
 
 ---
 
 ## ⚙️ API Reference
 
-Base URL (local): `http://localhost:8000`  
-Base URL (production): `https://web-production-4bd43.up.railway.app`
+Base URL (local): `http://localhost:8000`
 
 | Endpoint | Method | Description |
 |---|---|---|
@@ -296,53 +272,6 @@ Steps:
 
 ---
 
-## ☁️ Production Deployment
-
-### Architecture
-The application is deployed as **two separate services**:
-
-| Service | Platform | URL |
-|---|---|---|
-| **React Frontend** | Vercel | https://kpcl-selected-item-forecasting.vercel.app/ |
-| **FastAPI + Dash Backend** | Railway | https://web-production-4bd43.up.railway.app/ |
-
-The frontend uses the `VITE_API_BASE_URL` environment variable to point to the Railway backend. CORS is enabled on the backend to allow cross-origin requests from the Vercel domain.
-
-### Deploy Backend (Railway)
-```bash
-git push origin main   # Railway auto-deploys on push via nixpacks.toml
-```
-
-Railway runs:
-```bash
-gunicorn app:app --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
-```
-
-### Deploy Frontend (Vercel)
-Vercel auto-deploys from the `frontend/` directory on every push to `main`.  
-Set the following environment variable in the Vercel dashboard:
-
-| Key | Value |
-|---|---|
-| `VITE_API_BASE_URL` | `https://web-production-4bd43.up.railway.app` |
-
-To manually trigger a rebuild after frontend changes:
-```powershell
-cd frontend
-npm run build    # verify locally
-cd ..
-git add frontend/
-git commit -m "Frontend update: <description>"
-git push origin main
-```
-
-### Railway Environment Variables
-| Key | Value |
-|---|---|
-| `PORT` | Set automatically by Railway |
-| `RAILWAY_ENVIRONMENT` | Set automatically — used to switch Dash routing mode |
-
----
 
 ## 📦 Core Technology Stack
 
@@ -353,7 +282,7 @@ git push origin main
 *   **Scikit-Learn / XGBoost**: ML-based forecasting (Random Forest, Gradient Boosting).
 *   **Pandas / NumPy**: Data manipulation and numerical processing.
 *   **Dash / Plotly**: Integrated analytics dashboard for revenue reporting.
-*   **Gunicorn + Uvicorn**: ASGI/WSGI production server for Railway.
+*   **Gunicorn + Uvicorn**: ASGI/WSGI server components.
 
 ### Frontend (JavaScript/React)
 *   **React + Vite**: Modern, fast frontend framework and build tool.
@@ -361,12 +290,6 @@ git push origin main
 *   **Tailwind CSS**: Utility-first CSS framework for the enterprise dashboard UI.
 *   **Lucide React**: Consistent icon library.
 
-### Hosting & Deployment
-*   **Railway**: Cloud hosting for the FastAPI + Dash backend.
-*   **Vercel**: Optimized static hosting for the React frontend.
-*   **Nixpacks**: Automatic build configuration for Railway deployments.
-
----
 
 ## 📄 License
 

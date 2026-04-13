@@ -290,10 +290,7 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-6 w-48 justify-end">
-            <div className="flex items-center gap-2 px-3 py-1 bg-[#234FA2]/10 rounded-full">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#234FA2] animate-pulse" />
-              <span className="text-[10px] font-black text-[#234FA2] uppercase">Production Active</span>
-            </div>
+            {/* Right-side header content placeholder */}
           </div>
         </header>
 
