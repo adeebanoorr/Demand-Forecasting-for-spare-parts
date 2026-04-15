@@ -27,5 +27,5 @@ Write-Host "Servers are starting in new windows." -ForegroundColor Green
 Write-Host "You can view the app at:" -ForegroundColor White
 Write-Host "-> Frontend: http://localhost:5173" -ForegroundColor Cyan
 Write-Host "-> Backend:  http://localhost:8000" -ForegroundColor Cyan
-Write-Host "-> Dash:     http://localhost:8050" -ForegroundColor Cyan
+Write-Host "-> Dash:     http://localhost:8000/analytics" -ForegroundColor Cyan
 Write-Host ""

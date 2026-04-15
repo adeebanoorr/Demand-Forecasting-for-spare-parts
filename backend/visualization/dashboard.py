@@ -54,7 +54,7 @@ app = dash.Dash(
     __name__, 
     external_stylesheets=[dbc.themes.FLATLY],
     requests_pathname_prefix='/analytics/',
-    routes_pathname_prefix='/' if IS_PRODUCTION else '/analytics/'
+    routes_pathname_prefix='/'
 )
 
 app.index_string = f'''
