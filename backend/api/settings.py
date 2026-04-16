@@ -1,7 +1,5 @@
 from pydantic_settings import BaseSettings
 from pathlib import Path
-from typing import List
-from pydantic import field_validator
 import os
 
 class Settings(BaseSettings):
@@ -19,21 +17,9 @@ class Settings(BaseSettings):
     STATIC_DIR: Path = Path(__file__).resolve().parents[2] / "frontend" / "dist"
     
     # Security
-    ALLOWED_ORIGINS: List[str] = ["*"]
-
-    @field_validator("ALLOWED_ORIGINS", mode="before")
-    @classmethod
-    def parse_allowed_origins(cls, value):
-        # Accept Render-style string env vars such as "*" or
-        # comma-separated origins in addition to JSON arrays.
-        if isinstance(value, str):
-            raw = value.strip()
-            if raw == "*":
-                return ["*"]
-            if raw.startswith("[") and raw.endswith("]"):
-                return value
-            return [origin.strip() for origin in raw.split(",") if origin.strip()]
-        return value
+    # Keep this as plain string so env parsing never crashes on Render.
+    # Examples: "*", "https://a.com,https://b.com", '["https://a.com"]'
+    ALLOWED_ORIGINS: str = "*"
 
     model_config = {
         "env_file": ".env",

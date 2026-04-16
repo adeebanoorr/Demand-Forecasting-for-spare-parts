@@ -12,6 +12,18 @@ from backend.api.settings import settings
 from backend.api.routers import items, forecasts, metrics, downloads
 from backend.api.schemas import ErrorResponse
 
+def parse_allowed_origins(origins_value: str):
+    raw = (origins_value or "*").strip()
+    if raw == "*":
+        return ["*"]
+    if raw.startswith("[") and raw.endswith("]"):
+        # Minimal JSON-like list support without failing startup on bad input.
+        inner = raw[1:-1].strip()
+        if not inner:
+            return []
+        return [part.strip().strip('"').strip("'") for part in inner.split(",") if part.strip()]
+    return [origin.strip() for origin in raw.split(",") if origin.strip()]
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup logic
@@ -31,7 +43,7 @@ app = FastAPI(
 # Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_ORIGINS,
+    allow_origins=parse_allowed_origins(settings.ALLOWED_ORIGINS),
     allow_methods=["*"],
     allow_headers=["*"],
 )
