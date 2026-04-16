@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import LandingPage from './LandingPage';
+import LoginPage from './LoginPage';
 import {
   LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Area, ComposedChart, Cell
 } from 'recharts';
@@ -176,9 +178,9 @@ const SectionTitle = ({ title }) => (
   </h3>
 );
 
-// --- Main Application ---
+// --- Main Dashboard Component ---
 
-export default function App() {
+function Dashboard() {
   const [page, setPage] = useState('home');
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState('');
@@ -703,4 +705,20 @@ export default function App() {
       </main>
     </div>
   );
+}
+
+// --- App Entry Point with Routing ---
+
+export default function App() {
+  const [view, setView] = useState("landing");
+
+  if (view === "landing") {
+    return <LandingPage onExplore={() => setView("login")} />;
+  }
+
+  if (view === "login") {
+    return <LoginPage onLogin={() => setView("dashboard")} />;
+  }
+
+  return <Dashboard />;
 }

@@ -21,9 +21,9 @@ services:
     staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
-        value: https://kpcl-api.onrender.com/api/v1
+        value: https://kpcl-api-71pk.onrender.com/api/v1
       - key: VITE_ANALYTICS_URL
-        value: https://kpcl-api.onrender.com/analytics/
+        value: https://kpcl-api-71pk.onrender.com/analytics/
     routes:
       - type: rewrite
         source: /*
