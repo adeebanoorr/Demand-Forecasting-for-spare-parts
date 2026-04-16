@@ -119,9 +119,9 @@ export default function LandingPage({ onLogin }) {
     <div
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #0a1628 0%, #003a61 100%)",
+        background: "linear-gradient(135deg, #152F61 0%, #1C3F82 55%, #234FA2 100%)",
         fontFamily: "'DM Sans', 'Segoe UI', sans-serif",
-        color: "#e2e8f0",
+        color: "#E6F1F8",
         overflowX: "hidden",
       }}
     >
@@ -130,13 +130,13 @@ export default function LandingPage({ onLogin }) {
         <div style={{
           position: "absolute", top: "-20%", right: "-10%",
           width: "600px", height: "600px",
-          background: "radial-gradient(circle, rgba(0,117,190,0.06) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(224,124,58,0.12) 0%, transparent 70%)",
           borderRadius: "50%",
         }} />
         <div style={{
           position: "absolute", bottom: "10%", left: "-10%",
           width: "500px", height: "500px",
-          background: "radial-gradient(circle, rgba(99,102,241,0.05) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(230,241,248,0.14) 0%, transparent 70%)",
           borderRadius: "50%",
         }} />
         {/* Grid lines */}
@@ -152,10 +152,10 @@ export default function LandingPage({ onLogin }) {
 
       {/* NAV */}
       <nav style={{
-        position: "sticky", top: 0, zIndex: 100,
-        background: "rgba(10,15,30,0.85)",
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        background: "rgba(21,47,97,0.94)",
         backdropFilter: "blur(16px)",
-        borderBottom: "1px solid rgba(34,211,238,0.1)",
+        borderBottom: "1px solid rgba(230,241,248,0.2)",
         padding: "0 2rem",
         display: "flex", alignItems: "center", justifyContent: "space-between",
         height: "64px",
@@ -170,7 +170,7 @@ export default function LandingPage({ onLogin }) {
             <BarChart2 size={18} color="#fff" />
           </div>
           <span style={{ fontWeight: 700, fontSize: "1rem", letterSpacing: "0.02em" }}>
-            KPCL <span style={{ color: "#0075BE" }}>Analytics</span>
+            Spare Part <span style={{ color: "#0075BE" }}>Demand Forecasting</span>
           </span>
         </div>
         <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
@@ -178,13 +178,13 @@ export default function LandingPage({ onLogin }) {
             onClick={onLogin}
             style={{
               background: "transparent",
-              border: "1px solid rgba(0,117,190,0.3)",
-              color: "#0075BE",
+              border: "1px solid rgba(230,241,248,0.35)",
+              color: "#E6F1F8",
               borderRadius: 8, padding: "8px 20px",
               cursor: "pointer", fontSize: "0.875rem", fontWeight: 500,
               transition: "all 0.2s",
             }}
-            onMouseOver={e => { e.target.style.background = "rgba(34,211,238,0.08)"; }}
+            onMouseOver={e => { e.target.style.background = "rgba(230,241,248,0.12)"; }}
             onMouseOut={e => { e.target.style.background = "transparent"; }}
           >
             Login
@@ -197,7 +197,7 @@ export default function LandingPage({ onLogin }) {
         {/* HERO */}
         <section style={{
           maxWidth: 1100, margin: "0 auto",
-          padding: "100px 2rem 80px",
+          padding: "164px 2rem 80px",
           textAlign: "center",
           opacity: visible ? 1 : 0,
           transform: visible ? "translateY(0)" : "translateY(24px)",
@@ -205,13 +205,13 @@ export default function LandingPage({ onLogin }) {
         }}>
           <div style={{
             display: "inline-flex", alignItems: "center", gap: 8,
-            background: "rgba(0,117,190,0.08)",
-            border: "1px solid rgba(0,117,190,0.2)",
+            background: "rgba(230,241,248,0.15)",
+            border: "1px solid rgba(230,241,248,0.35)",
             borderRadius: 100, padding: "6px 16px",
-            fontSize: "0.8rem", color: "#0075BE", letterSpacing: "0.06em",
+            fontSize: "0.8rem", color: "#E6F1F8", letterSpacing: "0.06em",
             textTransform: "uppercase", fontWeight: 600, marginBottom: "2rem",
           }}>
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#22d3ee", display: "inline-block" }} />
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#E07C3A", display: "inline-block" }} />
             AI-Powered Spare Parts Intelligence
           </div>
 
@@ -219,25 +219,31 @@ export default function LandingPage({ onLogin }) {
             fontSize: "clamp(2.4rem, 5vw, 4rem)",
             fontWeight: 800,
             lineHeight: 1.1,
+            color: "#E6F1F8",
             marginBottom: "1.5rem",
             letterSpacing: "-0.02em",
+            textShadow: "0 2px 10px rgba(21,47,97,0.28)",
           }}>
             Stop Guessing.{" "}
             <span style={{
-              background: "linear-gradient(90deg, #0075BE, #234FA2)",
+              background: "linear-gradient(90deg, #0075BE, #E07C3A)",
+              backgroundClip: "text",
               WebkitBackgroundClip: "text",
+              color: "#E07C3A",
               WebkitTextFillColor: "transparent",
+              display: "inline-block",
             }}>
               Start Forecasting.
             </span>
           </h1>
 
           <p style={{
-            fontSize: "1.15rem", color: "#94a3b8",
+            fontSize: "1.15rem", color: "#E6F1F8",
             maxWidth: 640, margin: "0 auto 3rem",
             lineHeight: 1.7,
+            opacity: 0.9,
           }}>
-            Kirloskar Pneumatic's AI platform predicts weekly spare part demand for ACR SPARES —
+            This AI platform predicts weekly spare part demand for ACR SPARES —
             reducing stockouts, cutting excess inventory, and benchmarking 6+ ML models automatically.
           </p>
 
@@ -250,26 +256,26 @@ export default function LandingPage({ onLogin }) {
                 borderRadius: 12, padding: "14px 32px",
                 cursor: "pointer", fontSize: "1rem", fontWeight: 600,
                 display: "flex", alignItems: "center", gap: 8,
-                boxShadow: "0 0 40px rgba(0,117,190,0.25)",
+                boxShadow: "0 0 40px rgba(35,79,162,0.35)",
                 transition: "all 0.2s",
               }}
-              onMouseOver={e => { e.currentTarget.style.transform = "scale(1.03)"; e.currentTarget.style.boxShadow = "0 0 60px rgba(34,211,238,0.4)"; }}
-              onMouseOut={e => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "0 0 40px rgba(34,211,238,0.25)"; }}
+              onMouseOver={e => { e.currentTarget.style.transform = "scale(1.03)"; e.currentTarget.style.boxShadow = "0 0 60px rgba(35,79,162,0.45)"; }}
+              onMouseOut={e => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "0 0 40px rgba(35,79,162,0.35)"; }}
             >
               Explore Platform <ArrowRight size={18} />
             </button>
             <button
               onClick={onLogin}
               style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.12)",
-                color: "#e2e8f0",
+                background: "rgba(230,241,248,0.1)",
+                border: "1px solid rgba(230,241,248,0.2)",
+                color: "#E6F1F8",
                 borderRadius: 12, padding: "14px 32px",
                 cursor: "pointer", fontSize: "1rem", fontWeight: 500,
                 transition: "all 0.2s",
               }}
-              onMouseOver={e => { e.currentTarget.style.background = "rgba(255,255,255,0.08)"; }}
-              onMouseOut={e => { e.currentTarget.style.background = "rgba(255,255,255,0.04)"; }}
+              onMouseOver={e => { e.currentTarget.style.background = "rgba(230,241,248,0.2)"; }}
+              onMouseOut={e => { e.currentTarget.style.background = "rgba(230,241,248,0.1)"; }}
             >
               Login →
             </button>
@@ -286,13 +292,13 @@ export default function LandingPage({ onLogin }) {
           <div style={{
             display: "grid", gridTemplateColumns: "repeat(4, 1fr)",
             gap: "1px",
-            background: "rgba(34,211,238,0.1)",
-            border: "1px solid rgba(34,211,238,0.1)",
+            background: "rgba(230,241,248,0.16)",
+            border: "1px solid rgba(230,241,248,0.2)",
             borderRadius: 16, overflow: "hidden",
           }}>
             {STATS.map(({ value, label }) => (
               <div key={label} style={{
-                background: "rgba(13,27,42,0.8)",
+                background: "rgba(21,47,97,0.86)",
                 padding: "28px 20px",
                 textAlign: "center",
                 backdropFilter: "blur(10px)",
@@ -306,7 +312,7 @@ export default function LandingPage({ onLogin }) {
                 }}>
                   {value}
                 </div>
-                <div style={{ color: "#64748b", fontSize: "0.8rem", marginTop: 6, fontWeight: 500, letterSpacing: "0.04em", textTransform: "uppercase" }}>
+                <div style={{ color: "#E6F1F8", opacity: 0.75, fontSize: "0.8rem", marginTop: 6, fontWeight: 500, letterSpacing: "0.04em", textTransform: "uppercase" }}>
                   {label}
                 </div>
               </div>
@@ -319,9 +325,9 @@ export default function LandingPage({ onLogin }) {
           <div style={{ textAlign: "center", marginBottom: "3rem" }}>
             <div style={{
               display: "inline-block",
-              background: "rgba(251,146,60,0.1)",
-              border: "1px solid rgba(251,146,60,0.2)",
-              color: "#fb923c",
+              background: "rgba(254,243,235,0.9)",
+              border: "1px solid rgba(224,124,58,0.35)",
+              color: "#E07C3A",
               borderRadius: 100, padding: "4px 14px",
               fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.07em",
               textTransform: "uppercase", marginBottom: "1rem",
@@ -331,7 +337,7 @@ export default function LandingPage({ onLogin }) {
             <h2 style={{ fontSize: "2rem", fontWeight: 700, marginBottom: "0.5rem" }}>
               Why traditional planning fails
             </h2>
-            <p style={{ color: "#64748b", fontSize: "1rem" }}>
+            <p style={{ color: "#E6F1F8", opacity: 0.85, fontSize: "1rem" }}>
               Industrial spare part demand is volatile, seasonal, and critical — yet most teams still rely on gut instinct.
             </p>
           </div>
@@ -343,25 +349,25 @@ export default function LandingPage({ onLogin }) {
           }}>
             {PROBLEMS.map(({ icon: Icon, title, desc }) => (
               <div key={title} style={{
-                background: "rgba(251,146,60,0.04)",
-                border: "1px solid rgba(251,146,60,0.12)",
+                background: "#FEF3EB",
+                border: "1px solid rgba(224,124,58,0.25)",
                 borderRadius: 16, padding: "24px",
                 transition: "all 0.25s",
                 cursor: "default",
               }}
-                onMouseOver={e => { e.currentTarget.style.background = "rgba(251,146,60,0.08)"; e.currentTarget.style.borderColor = "rgba(251,146,60,0.25)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
-                onMouseOut={e => { e.currentTarget.style.background = "rgba(251,146,60,0.04)"; e.currentTarget.style.borderColor = "rgba(251,146,60,0.12)"; e.currentTarget.style.transform = "translateY(0)"; }}
+                onMouseOver={e => { e.currentTarget.style.background = "#FDEADE"; e.currentTarget.style.borderColor = "rgba(224,124,58,0.4)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
+                onMouseOut={e => { e.currentTarget.style.background = "#FEF3EB"; e.currentTarget.style.borderColor = "rgba(224,124,58,0.25)"; e.currentTarget.style.transform = "translateY(0)"; }}
               >
                 <div style={{
                   width: 40, height: 40, borderRadius: 10,
-                  background: "rgba(251,146,60,0.12)",
+                  background: "rgba(224,124,58,0.14)",
                   display: "flex", alignItems: "center", justifyContent: "center",
                   marginBottom: 14,
                 }}>
-                  <Icon size={20} color="#fb923c" />
+                  <Icon size={20} color="#E07C3A" />
                 </div>
-                <h3 style={{ fontWeight: 600, fontSize: "1rem", marginBottom: 6 }}>{title}</h3>
-                <p style={{ color: "#64748b", fontSize: "0.875rem", lineHeight: 1.6 }}>{desc}</p>
+                <h3 style={{ fontWeight: 600, fontSize: "1rem", marginBottom: 6, color: "#1C3F82" }}>{title}</h3>
+                <p style={{ color: "#152F61", fontSize: "0.875rem", lineHeight: 1.6 }}>{desc}</p>
               </div>
             ))}
           </div>
@@ -384,7 +390,7 @@ export default function LandingPage({ onLogin }) {
               Our Solution
             </div>
             <h2 style={{ fontSize: "2rem", fontWeight: 700, marginBottom: "0.5rem" }}>
-              How KPCL Analytics solves this
+              How this platform solves this
             </h2>
             <p style={{ color: "#64748b", fontSize: "1rem" }}>
               A full-stack AI pipeline — from raw despatch records to weekly forecasts — deployed and live.
@@ -482,7 +488,7 @@ export default function LandingPage({ onLogin }) {
           color: "#475569",
           fontSize: "0.8rem",
         }}>
-          © 2024 Kirloskar Pneumatic Co. Ltd. · KPCL Analytics Platform · ACR SPARES Forecasting
+          © 2024 Spare Part Demand Forecasting Platform · ACR SPARES Forecasting
         </footer>
       </div>
     </div>

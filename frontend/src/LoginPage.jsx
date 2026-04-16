@@ -42,10 +42,10 @@ export default function LoginPage({ onLogin, onBack }) {
   return (
     <div style={{
       minHeight: "100vh",
-      background: "linear-gradient(135deg, #0a1628 0%, #003a61 100%)",
+      background: "linear-gradient(135deg, #152F61 0%, #1C3F82 55%, #234FA2 100%)",
       display: "flex",
       fontFamily: "'DM Sans', 'Segoe UI', sans-serif",
-      color: "#e2e8f0",
+      color: "#E6F1F8",
       overflow: "hidden",
       position: "relative",
     }}>
@@ -55,13 +55,13 @@ export default function LoginPage({ onLogin, onBack }) {
         <div style={{
           position: "absolute", top: "15%", right: "8%",
           width: "500px", height: "500px",
-          background: "radial-gradient(circle, rgba(0,117,190,0.07) 0%, transparent 65%)",
+          background: "radial-gradient(circle, rgba(224,124,58,0.14) 0%, transparent 65%)",
           borderRadius: "50%",
         }} />
         <div style={{
           position: "absolute", bottom: "10%", left: "5%",
           width: "400px", height: "400px",
-          background: "radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 65%)",
+          background: "radial-gradient(circle, rgba(230,241,248,0.14) 0%, transparent 65%)",
           borderRadius: "50%",
         }} />
         <svg width="100%" height="100%" style={{ opacity: 0.025, position: "absolute", inset: 0 }}>
@@ -98,7 +98,7 @@ export default function LoginPage({ onLogin, onBack }) {
           </div>
           <div>
             <div style={{ fontWeight: 700, fontSize: "1.1rem", letterSpacing: "0.01em" }}>
-              KPCL <span style={{ color: "#0075BE" }}>Analytics</span>
+              Spare Part <span style={{ color: "#0075BE" }}>Demand Forecasting</span>
             </div>
             <div style={{ fontSize: "0.72rem", color: "#475569", letterSpacing: "0.08em", textTransform: "uppercase" }}>
               Spare Parts Intelligence
@@ -125,17 +125,17 @@ export default function LoginPage({ onLogin, onBack }) {
           {" "}for ACR SPARES
         </h1>
 
-        <p style={{ color: "#64748b", fontSize: "1rem", lineHeight: 1.7, maxWidth: 420, marginBottom: "3rem" }}>
+        <p style={{ color: "#E6F1F8", opacity: 0.9, fontSize: "1rem", lineHeight: 1.7, maxWidth: 420, marginBottom: "3rem" }}>
           Access real-time 12-week demand forecasts, model benchmarks,
-          MSTL decomposition, and portfolio-level KPIs for Kirloskar Pneumatic's priority spare parts.
+          MSTL decomposition, and portfolio-level KPIs for priority spare parts.
         </p>
 
         {/* Feature list */}
         <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
           {[
             { color: "#0075BE", text: "6+ AI models auto-benchmarked per item" },
-            { color: "#34d399", text: "Weekly forecasts with confidence intervals" },
-            { color: "#818cf8", text: "MSTL trend & seasonal decomposition" },
+            { color: "#E07C3A", text: "Weekly forecasts with confidence intervals" },
+            { color: "#E6F1F8", text: "MSTL trend & seasonal decomposition" },
           ].map(({ color, text }) => (
             <div key={text} style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{
@@ -144,7 +144,7 @@ export default function LoginPage({ onLogin, onBack }) {
                 boxShadow: `0 0 8px ${color}80`,
                 flexShrink: 0,
               }} />
-              <span style={{ color: "#94a3b8", fontSize: "0.9rem" }}>{text}</span>
+              <span style={{ color: "#E6F1F8", opacity: 0.85, fontSize: "0.9rem" }}>{text}</span>
             </div>
           ))}
         </div>
@@ -155,7 +155,7 @@ export default function LoginPage({ onLogin, onBack }) {
           borderTop: "1px solid rgba(255,255,255,0.06)",
           maxWidth: 420,
         }}>
-          <p style={{ color: "#334155", fontSize: "0.8rem", fontStyle: "italic", lineHeight: 1.6 }}>
+          <p style={{ color: "#E6F1F8", opacity: 0.65, fontSize: "0.8rem", fontStyle: "italic", lineHeight: 1.6 }}>
             "Trained on 4,769 weekly despatch records · Tested on 12 hold-out weeks ·
             Champion model selected by lowest RMSE per item."
           </p>
@@ -174,27 +174,27 @@ export default function LoginPage({ onLogin, onBack }) {
       }}>
         <div style={{
           width: "100%", maxWidth: 400,
-          background: "rgba(13,21,36,0.8)",
+          background: "rgba(230,241,248,0.96)",
           backdropFilter: "blur(20px)",
-          border: "1px solid rgba(255,255,255,0.08)",
+          border: "1px solid rgba(28,63,130,0.15)",
           borderRadius: 24,
           padding: "40px 36px",
-          boxShadow: "0 40px 80px rgba(0,0,0,0.4), 0 0 1px rgba(34,211,238,0.1)",
+          boxShadow: "0 24px 50px rgba(15,38,82,0.28)",
         }}>
           {/* Card header */}
           <div style={{ textAlign: "center", marginBottom: "2rem" }}>
             <div style={{
               width: 52, height: 52,
-              background: "linear-gradient(135deg, rgba(34,211,238,0.15), rgba(99,102,241,0.15))",
-              border: "1px solid rgba(34,211,238,0.2)",
+              background: "linear-gradient(135deg, rgba(0,117,190,0.12), rgba(35,79,162,0.16))",
+              border: "1px solid rgba(35,79,162,0.24)",
               borderRadius: 14,
               display: "flex", alignItems: "center", justifyContent: "center",
               margin: "0 auto 1rem",
             }}>
               <Lock size={22} color="#0075BE" />
             </div>
-            <h2 style={{ fontWeight: 700, fontSize: "1.3rem", marginBottom: 4 }}>Welcome back</h2>
-            <p style={{ color: "#475569", fontSize: "0.875rem" }}>Sign in to your admin account</p>
+            <h2 style={{ fontWeight: 700, fontSize: "1.3rem", marginBottom: 4, color: "#1C3F82" }}>Welcome back</h2>
+            <p style={{ color: "#152F61", opacity: 0.8, fontSize: "0.875rem" }}>Sign in to your admin account</p>
           </div>
 
           <div style={{ marginBottom: '1.5rem' }}>
@@ -202,15 +202,15 @@ export default function LoginPage({ onLogin, onBack }) {
               onClick={onBack}
               style={{
                 background: "transparent",
-                border: "1px solid rgba(255,255,255,0.1)",
-                color: "#64748b",
+                border: "1px solid rgba(35,79,162,0.25)",
+                color: "#1C3F82",
                 borderRadius: 8, padding: "6px 12px",
                 cursor: "pointer", fontSize: "0.75rem", fontWeight: 500,
                 transition: "all 0.2s",
                 display: "flex", alignItems: "center", gap: 6, margin: "0 auto"
               }}
-              onMouseOver={e => { e.target.style.background = "rgba(255,255,255,0.05)"; e.target.style.color = "#e2e8f0"; }}
-              onMouseOut={e => { e.target.style.background = "transparent"; e.target.style.color = "#64748b"; }}
+              onMouseOver={e => { e.target.style.background = "rgba(230,241,248,0.9)"; e.target.style.color = "#152F61"; }}
+              onMouseOut={e => { e.target.style.background = "transparent"; e.target.style.color = "#1C3F82"; }}
             >
                ← Back to Home
             </button>
@@ -236,11 +236,11 @@ export default function LoginPage({ onLogin, onBack }) {
 
             {/* Username */}
             <div>
-              <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 500, color: "#94a3b8", marginBottom: 6, letterSpacing: "0.03em" }}>
+              <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 500, color: "#1C3F82", marginBottom: 6, letterSpacing: "0.03em" }}>
                 USERNAME
               </label>
               <div style={{ position: "relative" }}>
-                <User size={16} color="#475569" style={{
+                <User size={16} color="#1C3F82" style={{
                   position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", pointerEvents: "none",
                 }} />
                 <input
@@ -251,26 +251,26 @@ export default function LoginPage({ onLogin, onBack }) {
                   placeholder="admin"
                   style={{
                     width: "100%", boxSizing: "border-box",
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(255,255,255,0.1)",
+                    background: "#FEF3EB",
+                    border: "1px solid rgba(28,63,130,0.18)",
                     borderRadius: 10, padding: "12px 14px 12px 40px",
-                    color: "#e2e8f0", fontSize: "0.9rem",
+                    color: "#152F61", fontSize: "0.9rem",
                     outline: "none",
                     transition: "border-color 0.2s",
                   }}
-                  onFocus={e => { e.target.style.borderColor = "rgba(34,211,238,0.4)"; e.target.style.background = "rgba(34,211,238,0.04)"; }}
-                  onBlur={e => { e.target.style.borderColor = "rgba(255,255,255,0.1)"; e.target.style.background = "rgba(255,255,255,0.04)"; }}
+                  onFocus={e => { e.target.style.borderColor = "rgba(0,117,190,0.45)"; e.target.style.background = "#fff"; }}
+                  onBlur={e => { e.target.style.borderColor = "rgba(28,63,130,0.18)"; e.target.style.background = "#FEF3EB"; }}
                 />
               </div>
             </div>
 
             {/* Password */}
             <div>
-              <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 500, color: "#94a3b8", marginBottom: 6, letterSpacing: "0.03em" }}>
+              <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 500, color: "#1C3F82", marginBottom: 6, letterSpacing: "0.03em" }}>
                 PASSWORD
               </label>
               <div style={{ position: "relative" }}>
-                <Lock size={16} color="#475569" style={{
+                <Lock size={16} color="#1C3F82" style={{
                   position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", pointerEvents: "none",
                 }} />
                 <input
@@ -281,21 +281,21 @@ export default function LoginPage({ onLogin, onBack }) {
                   placeholder="••••••••"
                   style={{
                     width: "100%", boxSizing: "border-box",
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(255,255,255,0.1)",
+                    background: "#FEF3EB",
+                    border: "1px solid rgba(28,63,130,0.18)",
                     borderRadius: 10, padding: "12px 44px 12px 40px",
-                    color: "#e2e8f0", fontSize: "0.9rem",
+                    color: "#152F61", fontSize: "0.9rem",
                     outline: "none",
                     transition: "border-color 0.2s",
                   }}
-                  onFocus={e => { e.target.style.borderColor = "rgba(34,211,238,0.4)"; e.target.style.background = "rgba(34,211,238,0.04)"; }}
-                  onBlur={e => { e.target.style.borderColor = "rgba(255,255,255,0.1)"; e.target.style.background = "rgba(255,255,255,0.04)"; }}
+                  onFocus={e => { e.target.style.borderColor = "rgba(0,117,190,0.45)"; e.target.style.background = "#fff"; }}
+                  onBlur={e => { e.target.style.borderColor = "rgba(28,63,130,0.18)"; e.target.style.background = "#FEF3EB"; }}
                 />
                 <button
                   onClick={() => setShowPass(s => !s)}
                   style={{
                     position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)",
-                    background: "none", border: "none", cursor: "pointer", padding: 4, color: "#475569",
+                    background: "none", border: "none", cursor: "pointer", padding: 4, color: "#1C3F82",
                     display: "flex", alignItems: "center",
                   }}
                 >
@@ -306,11 +306,11 @@ export default function LoginPage({ onLogin, onBack }) {
 
             {/* Hint */}
             <div style={{
-              background: "rgba(34,211,238,0.05)",
-              border: "1px solid rgba(34,211,238,0.1)",
+              background: "#FEF3EB",
+              border: "1px solid rgba(224,124,58,0.28)",
               borderRadius: 8, padding: "8px 12px",
             }}>
-              <p style={{ color: "#475569", fontSize: "0.78rem", margin: 0 }}>
+              <p style={{ color: "#152F61", fontSize: "0.78rem", margin: 0 }}>
                 Demo credentials: <span style={{ color: "#0075BE", fontWeight: 600 }}>admin</span> / <span style={{ color: "#0075BE", fontWeight: 600 }}>kpcl2024</span>
               </p>
             </div>
@@ -322,19 +322,19 @@ export default function LoginPage({ onLogin, onBack }) {
               style={{
                 marginTop: 4,
                 background: loading
-                  ? "rgba(0,117,190,0.3)"
+                  ? "rgba(35,79,162,0.55)"
                   : "linear-gradient(135deg, #0075BE, #234FA2)",
                 border: "none", color: "#fff",
                 borderRadius: 12, padding: "13px",
                 cursor: loading ? "not-allowed" : "pointer",
                 fontSize: "0.95rem", fontWeight: 600,
                 display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                boxShadow: loading ? "none" : "0 0 30px rgba(34,211,238,0.2)",
+                boxShadow: loading ? "none" : "0 0 30px rgba(35,79,162,0.25)",
                 transition: "all 0.2s",
                 width: "100%",
               }}
-              onMouseOver={e => { if (!loading) { e.currentTarget.style.transform = "scale(1.01)"; e.currentTarget.style.boxShadow = "0 0 50px rgba(34,211,238,0.35)"; } }}
-              onMouseOut={e => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = loading ? "none" : "0 0 30px rgba(34,211,238,0.2)"; }}
+              onMouseOver={e => { if (!loading) { e.currentTarget.style.transform = "scale(1.01)"; e.currentTarget.style.boxShadow = "0 0 50px rgba(35,79,162,0.35)"; } }}
+              onMouseOut={e => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = loading ? "none" : "0 0 30px rgba(35,79,162,0.25)"; }}
             >
               {loading ? (
                 <>
@@ -355,9 +355,9 @@ export default function LoginPage({ onLogin, onBack }) {
 
           {/* Footer */}
           <p style={{
-            textAlign: "center", color: "#334155", fontSize: "0.75rem", marginTop: "1.75rem",
+            textAlign: "center", color: "#152F61", opacity: 0.8, fontSize: "0.75rem", marginTop: "1.75rem",
           }}>
-            Kirloskar Pneumatic Co. Ltd. · Internal Platform · v1.0
+            Spare Part Demand Forecasting · Internal Platform · v1.0
           </p>
         </div>
       </div>
@@ -365,7 +365,7 @@ export default function LoginPage({ onLogin, onBack }) {
       <style>{`
         @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
-        input::placeholder { color: #334155; }
+        input::placeholder { color: #1C3F82; opacity: 0.7; }
       `}</style>
     </div>
   );
