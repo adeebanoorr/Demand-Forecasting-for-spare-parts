@@ -1,496 +1,290 @@
 import { useState, useEffect, useRef } from "react";
-import {
-  BarChart2,
-  Cpu,
-  AlertTriangle,
-  TrendingUp,
-  Package,
-  Clock,
-  ChevronRight,
-  ArrowRight,
-  Activity,
-  Layers,
-  Database,
-  Zap,
-} from "lucide-react";
+import { BarChart2, TrendingUp, Cpu, Layout, ArrowRight, ShieldCheck, Database, AlertTriangle, LineChart, PieChart } from "lucide-react";
 
-const PROBLEMS = [
-  {
-    icon: AlertTriangle,
-    title: "Reactive Procurement",
-    desc: "Parts ordered only after stockouts — halting production lines and inflating emergency costs.",
-  },
-  {
-    icon: Clock,
-    title: "Manual Forecasting",
-    desc: "Demand estimated by experience alone, ignoring seasonal patterns and historical signals.",
-  },
-  {
-    icon: Package,
-    title: "Excess Inventory",
-    desc: "Overstocking of low-demand parts ties up capital and warehouse capacity.",
-  },
-  {
-    icon: BarChart2,
-    title: "No Model Benchmarking",
-    desc: "No systematic way to compare AR, SARIMA, Prophet, XGBoost — leaving accuracy on the table.",
-  },
-];
-
-const SOLUTIONS = [
-  {
-    icon: Cpu,
-    label: "AI Model Competition",
-    desc: "6+ models auto-scored per item — champion selected by lowest RMSE.",
-    accent: "#22d3ee",
-  },
-  {
-    icon: TrendingUp,
-    label: "12-Week Forecasts",
-    desc: "Weekly demand predictions per part with confidence intervals.",
-    accent: "#34d399",
-  },
-  {
-    icon: Activity,
-    label: "MSTL Decomposition",
-    desc: "Trend, seasonal, and residual signals separated for deep insight.",
-    accent: "#818cf8",
-  },
-  {
-    icon: Database,
-    label: "Live API + Dashboard",
-    desc: "FastAPI backend + React dashboard — always up-to-date analytics.",
-    accent: "#fb923c",
-  },
-  {
-    icon: Layers,
-    label: "8 Priority Items",
-    desc: "ACR SPARES range tracked at weekly granularity from 2021–2024.",
-    accent: "#f472b6",
-  },
-  {
-    icon: Zap,
-    label: "Portfolio KPIs",
-    desc: "Revenue, QTY, and order analytics aggregated across all items.",
-    accent: "#facc15",
-  },
-];
-
-const STATS = [
-  { value: "8", label: "Tracked Parts" },
-  { value: "6+", label: "AI Models" },
-  { value: "12wk", label: "Forecast Horizon" },
-  { value: "4.7K", label: "Training Records" },
-];
-
-// Animated counter hook
-function useCounter(target, duration = 1200, start = false) {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    if (!start) return;
-    const isFloat = String(target).includes(".");
-    const num = parseFloat(target);
-    if (isNaN(num)) { setCount(target); return; }
-    let startTime = null;
-    const step = (timestamp) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(isFloat ? (eased * num).toFixed(1) : Math.floor(eased * num));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [start, target, duration]);
-  return count;
-}
-
-export default function LandingPage({ onLogin }) {
+export default function LandingPage({ onEnter }) {
+  const [mounted, setMounted] = useState(false);
   const problemRef = useRef(null);
-  const [visible, setVisible] = useState(false);
-  const [statsVisible, setStatsVisible] = useState(false);
-
+  
   useEffect(() => {
-    const t1 = setTimeout(() => setVisible(true), 100);
-    const t2 = setTimeout(() => setStatsVisible(true), 800);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    setMounted(true);
   }, []);
 
-  return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "linear-gradient(135deg, #152F61 0%, #1C3F82 55%, #234FA2 100%)",
-        fontFamily: "'DM Sans', 'Segoe UI', sans-serif",
-        color: "#E6F1F8",
-        overflowX: "hidden",
-      }}
-    >
-      {/* Mesh background */}
-      <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none" }}>
-        <div style={{
-          position: "absolute", top: "-20%", right: "-10%",
-          width: "600px", height: "600px",
-          background: "radial-gradient(circle, rgba(224,124,58,0.12) 0%, transparent 70%)",
-          borderRadius: "50%",
-        }} />
-        <div style={{
-          position: "absolute", bottom: "10%", left: "-10%",
-          width: "500px", height: "500px",
-          background: "radial-gradient(circle, rgba(230,241,248,0.14) 0%, transparent 70%)",
-          borderRadius: "50%",
-        }} />
-        {/* Grid lines */}
-        <svg width="100%" height="100%" style={{ opacity: 0.03 }}>
-          <defs>
-            <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#0075BE" strokeWidth="0.5" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
-      </div>
+  const scrollToProblem = () => {
+    problemRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
-      {/* NAV */}
+  // Palette constants
+  const P_NAVY = "#152F61";
+  const P_DEEP = "#1C3F82";
+  const P_PRIMARY = "#234FA2";
+  const P_BRAND = "#0075BE";
+  const P_LIGHT = "#E6F1F8";
+  const P_ACCENT = "#E07C3A";
+  const P_SURFACE = "#FEF3EB";
+
+  const HeroCircle = ({ size, color, top, right, bottom, left, blur = 100 }) => (
+    <div style={{
+      position: "absolute",
+      width: size, height: size,
+      background: color,
+      borderRadius: "50%",
+      top, right, bottom, left,
+      filter: `blur(${blur}px)`,
+      opacity: 0.12,
+      zIndex: 0,
+      pointerEvents: "none"
+    }} />
+  );
+
+  return (
+    <div style={{
+      minHeight: "100vh",
+      background: P_NAVY,
+      color: P_LIGHT,
+      fontFamily: "'Inter', sans-serif",
+      overflowX: "hidden",
+      position: "relative",
+    }}>
+      <HeroCircle size="600px" color={P_BRAND} top="-10%" right="-5%" />
+      <HeroCircle size="500px" color={P_ACCENT} bottom="5%" left="-5%" />
+
+      <style>{`
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-up { animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .btn-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -5px rgba(0, 117, 190, 0.3); }
+        .grid-card { transition: all 0.3s ease; }
+        .grid-card:hover { transform: translateY(-5px); border-color: rgba(230, 241, 248, 0.2) !important; background: rgba(230,241,248,0.05) !important; }
+      `}</style>
+
+      {/* Navigation */}
       <nav style={{
-        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-        background: "rgba(21,47,97,0.94)",
-        backdropFilter: "blur(16px)",
-        borderBottom: "1px solid rgba(230,241,248,0.2)",
-        padding: "0 2rem",
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        height: "64px",
+        padding: "20px 80px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        zIndex: 50,
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        background: `rgba(21, 47, 97, 0.85)`,
+        backdropFilter: "blur(12px)",
+        borderBottom: "1px solid rgba(255,255,255,0.05)"
       }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <div style={{
-            width: 32, height: 32,
-            background: "linear-gradient(135deg, #0075BE, #234FA2)",
-            borderRadius: 8,
+            width: 36, height: 36, background: P_BRAND, borderRadius: 10,
             display: "flex", alignItems: "center", justifyContent: "center",
           }}>
-            <BarChart2 size={18} color="#fff" />
+            <BarChart2 color="#fff" size={18} />
           </div>
-          <span style={{ fontWeight: 700, fontSize: "1rem", letterSpacing: "0.02em" }}>
-            Spare Part <span style={{ color: "#0075BE" }}>Demand Forecasting</span>
+          <span style={{ fontSize: "1.1rem", fontWeight: 800, letterSpacing: "-0.01em" }}>
+            Demand <span style={{ color: P_BRAND }}>Analytics</span>
           </span>
         </div>
-        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-          <button
-            onClick={onLogin}
-            style={{
-              background: "transparent",
-              border: "1px solid rgba(230,241,248,0.35)",
-              color: "#E6F1F8",
-              borderRadius: 8, padding: "8px 20px",
-              cursor: "pointer", fontSize: "0.875rem", fontWeight: 500,
-              transition: "all 0.2s",
-            }}
-            onMouseOver={e => { e.target.style.background = "rgba(230,241,248,0.12)"; }}
-            onMouseOut={e => { e.target.style.background = "transparent"; }}
-          >
-            Login
-          </button>
-        </div>
+
+        <button
+          onClick={onEnter}
+          style={{
+            padding: "10px 24px", background: "rgba(230,241,248,0.05)", border: "1px solid rgba(230,241,248,0.1)",
+            borderRadius: "50px", color: P_LIGHT, fontWeight: 700, fontSize: "14px",
+            cursor: "pointer", transition: "all 0.2s", display: "flex", alignItems: "center", gap: 8
+          }}
+          className="btn-hover"
+        >
+          Login <ArrowRight size={16} />
+        </button>
       </nav>
 
-      <div style={{ position: "relative", zIndex: 1 }}>
-
-        {/* HERO */}
-        <section style={{
-          maxWidth: 1100, margin: "0 auto",
-          padding: "164px 2rem 80px",
-          textAlign: "center",
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(24px)",
-          transition: "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
-        }}>
-          <div style={{
-            display: "inline-flex", alignItems: "center", gap: 8,
-            background: "rgba(230,241,248,0.15)",
-            border: "1px solid rgba(230,241,248,0.35)",
-            borderRadius: 100, padding: "6px 16px",
-            fontSize: "0.8rem", color: "#E6F1F8", letterSpacing: "0.06em",
-            textTransform: "uppercase", fontWeight: 600, marginBottom: "2rem",
-          }}>
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#E07C3A", display: "inline-block" }} />
-            AI-Powered Spare Parts Intelligence
-          </div>
-
+      {/* Hero Header */}
+      <header style={{
+        maxWidth: 1200, margin: "0 auto", padding: "160px 20px 80px",
+        textAlign: "center", position: "relative", zIndex: 1
+      }}>
+        <div className="animate-up">
           <h1 style={{
-            fontSize: "clamp(2.4rem, 5vw, 4rem)",
-            fontWeight: 800,
-            lineHeight: 1.1,
-            color: "#E6F1F8",
-            marginBottom: "1.5rem",
-            letterSpacing: "-0.02em",
-            textShadow: "0 2px 10px rgba(21,47,97,0.28)",
+            fontSize: "clamp(3.5rem, 7vw, 5rem)",
+            fontWeight: 900, lineHeight: 0.95,
+            letterSpacing: "-0.05em", marginBottom: "40px"
           }}>
-            Stop Guessing.{" "}
-            <span style={{
-              background: "linear-gradient(90deg, #0075BE, #E07C3A)",
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              color: "#E07C3A",
-              WebkitTextFillColor: "transparent",
-              display: "inline-block",
-            }}>
-              Start Forecasting.
-            </span>
+            Industrial Spare Part <br />
+            <span style={{ color: P_BRAND }}>Demand Forecasting.</span>
           </h1>
 
-          <p style={{
-            fontSize: "1.15rem", color: "#E6F1F8",
-            maxWidth: 640, margin: "0 auto 3rem",
-            lineHeight: 1.7,
-            opacity: 0.9,
-          }}>
-            This AI platform predicts weekly spare part demand for ACR SPARES —
-            reducing stockouts, cutting excess inventory, and benchmarking 6+ ML models automatically.
-          </p>
-
-          <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "1.5rem", justifyContent: "center", marginBottom: "80px" }}>
             <button
-              onClick={() => problemRef.current?.scrollIntoView({ behavior: 'smooth' })}
-              style={{
-                background: "linear-gradient(135deg, #0075BE, #234FA2)",
-                border: "none", color: "#fff",
-                borderRadius: 12, padding: "14px 32px",
-                cursor: "pointer", fontSize: "1rem", fontWeight: 600,
-                display: "flex", alignItems: "center", gap: 8,
-                boxShadow: "0 0 40px rgba(35,79,162,0.35)",
-                transition: "all 0.2s",
+               onClick={scrollToProblem}
+               style={{
+                padding: "20px 48px", background: P_BRAND, color: "#fff",
+                borderRadius: "50px", border: "none", fontSize: "1.1rem",
+                fontWeight: 800, cursor: "pointer", transition: "all 0.2s"
               }}
-              onMouseOver={e => { e.currentTarget.style.transform = "scale(1.03)"; e.currentTarget.style.boxShadow = "0 0 60px rgba(35,79,162,0.45)"; }}
-              onMouseOut={e => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "0 0 40px rgba(35,79,162,0.35)"; }}
+              className="btn-hover"
             >
-              Explore Platform <ArrowRight size={18} />
+              Explore Platform
             </button>
             <button
-              onClick={onLogin}
+              onClick={onEnter}
               style={{
-                background: "rgba(230,241,248,0.1)",
-                border: "1px solid rgba(230,241,248,0.2)",
-                color: "#E6F1F8",
-                borderRadius: 12, padding: "14px 32px",
-                cursor: "pointer", fontSize: "1rem", fontWeight: 500,
-                transition: "all 0.2s",
+                padding: "20px 48px", background: "#fff", color: P_NAVY,
+                borderRadius: "50px", border: "none", fontSize: "1.1rem",
+                fontWeight: 800, cursor: "pointer", transition: "all 0.2s"
               }}
-              onMouseOver={e => { e.currentTarget.style.background = "rgba(230,241,248,0.2)"; }}
-              onMouseOut={e => { e.currentTarget.style.background = "rgba(230,241,248,0.1)"; }}
+              className="btn-hover"
             >
-              Login →
+              Get Started
             </button>
           </div>
-        </section>
+        </div>
 
-        {/* STATS BAR */}
-        <section style={{
-          maxWidth: 900, margin: "0 auto 80px",
-          padding: "0 2rem",
-          opacity: statsVisible ? 1 : 0,
-          transition: "opacity 0.8s",
+        {/* Stats Section */}
+        <div style={{
+          display: "grid", gridTemplateColumns: "repeat(4, 1fr)",
+          gap: 1, background: "rgba(230,241,248,0.1)",
+          borderRadius: "32px", overflow: "hidden",
+          border: "1px solid rgba(230,241,248,0.1)"
         }}>
-          <div style={{
-            display: "grid", gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "1px",
-            background: "rgba(230,241,248,0.16)",
-            border: "1px solid rgba(230,241,248,0.2)",
-            borderRadius: 16, overflow: "hidden",
-          }}>
-            {STATS.map(({ value, label }) => (
-              <div key={label} style={{
-                background: "rgba(21,47,97,0.86)",
-                padding: "28px 20px",
-                textAlign: "center",
-                backdropFilter: "blur(10px)",
-              }}>
-                <div style={{
-                  fontSize: "2.2rem", fontWeight: 800,
-                  background: "linear-gradient(135deg, #0075BE, #234FA2)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  lineHeight: 1,
-                }}>
-                  {value}
-                </div>
-                <div style={{ color: "#E6F1F8", opacity: 0.75, fontSize: "0.8rem", marginTop: 6, fontWeight: 500, letterSpacing: "0.04em", textTransform: "uppercase" }}>
-                  {label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* PROBLEM SECTION */}
-        <section ref={problemRef} style={{ maxWidth: 1100, margin: "0 auto 100px", padding: "0 2rem" }}>
-          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-            <div style={{
-              display: "inline-block",
-              background: "rgba(254,243,235,0.9)",
-              border: "1px solid rgba(224,124,58,0.35)",
-              color: "#E07C3A",
-              borderRadius: 100, padding: "4px 14px",
-              fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.07em",
-              textTransform: "uppercase", marginBottom: "1rem",
-            }}>
-              The Problem
+          {[
+            { label: "Tracked Parts", value: "8" },
+            { label: "AI Models", value: "6+" },
+            { label: "Forecast Horizon", value: "12wk" },
+            { label: "Training Records", value: "4.7K" },
+          ].map(s => (
+            <div key={s.label} style={{ background: P_DEEP, padding: "40px" }}>
+              <div style={{ fontSize: "2.5rem", fontWeight: 900, color: P_BRAND, marginBottom: 4 }}>{s.value}</div>
+              <div style={{ fontSize: "12px", color: "rgba(230, 241, 248, 0.5)", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em" }}>{s.label}</div>
             </div>
-            <h2 style={{ fontSize: "2rem", fontWeight: 700, marginBottom: "0.5rem" }}>
+          ))}
+        </div>
+      </header>
+
+      {/* The Problem Section */}
+      <section 
+        ref={problemRef}
+        style={{
+          padding: "120px 20px", background: P_SURFACE, color: P_NAVY,
+          position: "relative", zIndex: 1
+        }}
+      >
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ marginBottom: "80px" }}>
+            <SectionTag label="The Problem" color={P_ACCENT} />
+            <h2 style={{ fontSize: "3rem", fontWeight: 900, letterSpacing: "-0.04em", marginBottom: "20px" }}>
               Why traditional planning fails
             </h2>
-            <p style={{ color: "#E6F1F8", opacity: 0.85, fontSize: "1rem" }}>
+            <p style={{ fontSize: "1.25rem", color: "rgba(21, 47, 97, 0.6)", maxWidth: 700, fontWeight: 500 }}>
               Industrial spare part demand is volatile, seasonal, and critical — yet most teams still rely on gut instinct.
             </p>
           </div>
 
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            gap: "1rem",
-          }}>
-            {PROBLEMS.map(({ icon: Icon, title, desc }) => (
-              <div key={title} style={{
-                background: "#FEF3EB",
-                border: "1px solid rgba(224,124,58,0.25)",
-                borderRadius: 16, padding: "24px",
-                transition: "all 0.25s",
-                cursor: "default",
-              }}
-                onMouseOver={e => { e.currentTarget.style.background = "#FDEADE"; e.currentTarget.style.borderColor = "rgba(224,124,58,0.4)"; e.currentTarget.style.transform = "translateY(-3px)"; }}
-                onMouseOut={e => { e.currentTarget.style.background = "#FEF3EB"; e.currentTarget.style.borderColor = "rgba(224,124,58,0.25)"; e.currentTarget.style.transform = "translateY(0)"; }}
-              >
-                <div style={{
-                  width: 40, height: 40, borderRadius: 10,
-                  background: "rgba(224,124,58,0.14)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  marginBottom: 14,
-                }}>
-                  <Icon size={20} color="#E07C3A" />
-                </div>
-                <h3 style={{ fontWeight: 600, fontSize: "1rem", marginBottom: 6, color: "#1C3F82" }}>{title}</h3>
-                <p style={{ color: "#152F61", fontSize: "0.875rem", lineHeight: 1.6 }}>{desc}</p>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
+            {[
+              { icon: AlertTriangle, title: "Reactive Procurement", desc: "Parts ordered only after stockouts — halting production lines and inflating emergency costs." },
+              { icon: TrendingUp, title: "Manual Forecasting", desc: "Demand estimated by experience alone, ignoring seasonal patterns and historical signals." },
+              { icon: Database, title: "Excess Inventory", desc: "Overstocking of low-demand parts ties up capital and warehouse capacity." },
+              { icon: Cpu, title: "No Model Benchmarking", desc: "No systematic way to compare AR, SARIMA, Prophet, XGBoost — leaving accuracy on the table." },
+            ].map(item => (
+              <div key={item.title} style={{
+                padding: "48px", background: "#fff", borderRadius: "32px",
+                border: "1px solid rgba(21, 47, 97, 0.05)"
+              }}>
+                <div style={{ color: P_ACCENT, marginBottom: "24px" }}><item.icon size={32} /></div>
+                <h3 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "12px" }}>{item.title}</h3>
+                <p style={{ color: "rgba(21, 47, 97, 0.6)", lineHeight: 1.6, fontWeight: 500 }}>{item.desc}</p>
               </div>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* SOLUTION SECTION */}
-        <section style={{
-          maxWidth: 1100, margin: "0 auto 100px", padding: "0 2rem",
-        }}>
-          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-            <div style={{
-              display: "inline-block",
-              background: "rgba(34,211,238,0.08)",
-              border: "1px solid rgba(34,211,238,0.2)",
-              color: "#22d3ee",
-              borderRadius: 100, padding: "4px 14px",
-              fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.07em",
-              textTransform: "uppercase", marginBottom: "1rem",
-            }}>
-              Our Solution
-            </div>
-            <h2 style={{ fontSize: "2rem", fontWeight: 700, marginBottom: "0.5rem" }}>
+      {/* Our Solution Section */}
+      <section style={{
+        padding: "120px 20px", background: "#fff", color: P_NAVY,
+        position: "relative", zIndex: 1
+      }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div style={{ marginBottom: "80px" }}>
+            <SectionTag label="Our Solution" color={P_BRAND} />
+            <h2 style={{ fontSize: "3rem", fontWeight: 900, letterSpacing: "-0.04em", marginBottom: "20px" }}>
               How this platform solves this
             </h2>
-            <p style={{ color: "#64748b", fontSize: "1rem" }}>
+            <p style={{ fontSize: "1.25rem", color: "rgba(21, 47, 97, 0.6)", maxWidth: 700, fontWeight: 500 }}>
               A full-stack AI pipeline — from raw despatch records to weekly forecasts — deployed and live.
             </p>
           </div>
 
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "1rem",
-          }}>
-            {SOLUTIONS.map(({ icon: Icon, label, desc, accent }) => (
-              <div key={label} style={{
-                background: "rgba(13,27,42,0.6)",
-                border: "1px solid rgba(255,255,255,0.06)",
-                borderRadius: 16, padding: "24px",
-                display: "flex", gap: 16, alignItems: "flex-start",
-                transition: "all 0.25s",
-              }}
-                onMouseOver={e => {
-                  e.currentTarget.style.borderColor = `${accent}40`;
-                  e.currentTarget.style.background = "rgba(13,27,42,0.9)";
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                }}
-                onMouseOut={e => {
-                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)";
-                  e.currentTarget.style.background = "rgba(13,27,42,0.6)";
-                  e.currentTarget.style.transform = "translateY(0)";
-                }}
-              >
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
+            {[
+              { icon: Cpu, title: "AI Model Competition", desc: "6+ models auto-scored per item — champion selected by lowest RMSE." },
+              { icon: LineChart, title: "12-Week Forecasts", desc: "Weekly demand predictions per part with confidence intervals." },
+              { icon: PieChart, title: "MSTL Decomposition", desc: "Trend, seasonal, and residual signals separated for deep insight." },
+              { icon: Layout, title: "Live API + Dashboard", desc: "FastAPI backend + React dashboard — always up-to-date analytics." },
+              { icon: Database, title: "8 Priority Items", desc: "ACR SPARES range tracked at weekly granularity from 2021–2024." },
+              { icon: BarChart2, title: "Portfolio KPIs", desc: "Revenue, QTY, and order analytics aggregated across all items." },
+            ].map(item => (
+              <div key={item.title} style={{
+                padding: "32px", background: P_LIGHT, borderRadius: "24px",
+                border: `1px solid ${P_BRAND}10`,
+                display: "flex", flexDirection: "column", gap: 16
+              }} className="grid-card">
                 <div style={{
-                  width: 42, height: 42, borderRadius: 10, flexShrink: 0,
-                  background: `${accent}18`,
-                  border: `1px solid ${accent}30`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
+                  width: 48, height: 48, background: P_BRAND, borderRadius: 12,
+                  display: "flex", alignItems: "center", justifyContent: "center", color: "#fff"
                 }}>
-                  <Icon size={20} color={accent} />
+                  <item.icon size={24} />
                 </div>
                 <div>
-                  <h3 style={{ fontWeight: 600, fontSize: "0.975rem", marginBottom: 4 }}>{label}</h3>
-                  <p style={{ color: "#64748b", fontSize: "0.85rem", lineHeight: 1.6 }}>{desc}</p>
+                  <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "8px" }}>{item.title}</h3>
+                  <p style={{ color: "rgba(21, 47, 97, 0.6)", fontSize: "0.95rem", lineHeight: 1.5, fontWeight: 500 }}>{item.desc}</p>
                 </div>
               </div>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* CTA BANNER */}
-        <section style={{ maxWidth: 1100, margin: "0 auto 80px", padding: "0 2rem" }}>
-          <div style={{
-            background: "linear-gradient(135deg, rgba(34,211,238,0.08) 0%, rgba(99,102,241,0.08) 100%)",
-            border: "1px solid rgba(34,211,238,0.15)",
-            borderRadius: 24, padding: "60px 40px",
-            textAlign: "center",
-            position: "relative", overflow: "hidden",
-          }}>
-            <div style={{
-              position: "absolute", top: -80, right: -80,
-              width: 300, height: 300,
-              background: "radial-gradient(circle, rgba(34,211,238,0.1) 0%, transparent 60%)",
-              borderRadius: "50%",
-            }} />
-            <h2 style={{ fontSize: "1.75rem", fontWeight: 700, marginBottom: "1rem" }}>
-              Ready to see your demand forecasts?
-            </h2>
-            <p style={{ color: "#94a3b8", marginBottom: "2rem", fontSize: "1rem" }}>
-              Log in to access live 12-week forecasts, model comparisons, and MSTL decomposition for all 8 ACR SPARES items.
-            </p>
-            <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-              <button
-                onClick={onLogin}
-                style={{
-                  background: "linear-gradient(135deg, #0075BE, #234FA2)",
-                  border: "none", color: "#fff",
-                  borderRadius: 12, padding: "14px 36px",
-                  cursor: "pointer", fontSize: "1rem", fontWeight: 600,
-                  display: "flex", alignItems: "center", gap: 8,
-                  boxShadow: "0 0 40px rgba(0,117,190,0.2)",
-                  transition: "all 0.2s",
-                }}
-                onMouseOver={e => { e.currentTarget.style.transform = "scale(1.03)"; }}
-                onMouseOut={e => { e.currentTarget.style.transform = "scale(1)"; }}
-              >
-                Get Started <ChevronRight size={18} />
-              </button>
-            </div>
-          </div>
-        </section>
+      {/* CTA Footer Section */}
+      <footer style={{
+        padding: "100px 20px", background: P_NAVY, textAlign: "center",
+        borderTop: `1px solid rgba(255,255,255,0.05)`
+      }}>
+        <div style={{ maxWidth: 700, margin: "0 auto", marginBottom: "48px" }}>
+          <h2 style={{ fontSize: "2.5rem", fontWeight: 900, marginBottom: "20px", letterSpacing: "-0.02em" }}>Ready to see your demand forecasts?</h2>
+          <p style={{ color: "rgba(230, 241, 248, 0.6)", fontSize: "1.1rem", lineHeight: 1.6 }}>
+            Log in to access live 12-week forecasts, model comparisons, and MSTL decomposition for all 8 ACR SPARES items.
+          </p>
+        </div>
+        
+        <button
+          onClick={onEnter}
+          style={{
+            padding: "20px 60px", background: "#fff", color: P_NAVY,
+            borderRadius: "50px", border: "none", fontSize: "1.1rem",
+            fontWeight: 800, cursor: "pointer", transition: "all 0.2s"
+          }}
+          className="btn-hover"
+        >
+          Get Started
+        </button>
 
-        {/* FOOTER */}
-        <footer style={{
-          borderTop: "1px solid rgba(255,255,255,0.06)",
-          padding: "2rem",
-          textAlign: "center",
-          color: "#475569",
-          fontSize: "0.8rem",
-        }}>
+        <div style={{ marginTop: "100px", color: "rgba(230, 241, 248, 0.4)", fontSize: "14px", fontWeight: 600 }}>
           © 2024 Spare Part Demand Forecasting Platform · ACR SPARES Forecasting
-        </footer>
-      </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+function SectionTag({ label, color }) {
+  return (
+    <div style={{
+      display: "inline-flex", alignItems: "center",
+      padding: "6px 14px", background: `${color}15`, borderRadius: "50px",
+      border: `1px solid ${color}30`, marginBottom: "20px"
+    }}>
+      <span style={{ fontSize: "12px", fontWeight: 900, color, textTransform: "uppercase", letterSpacing: "0.15em" }}>
+        {label}
+      </span>
     </div>
   );
 }

@@ -1,0 +1,30 @@
+
+[2026-04-14 10:39:19] SESSION: default_user
+USER: what is the total revenue of most sell item
+BOT: 3364040150
+--------------------------------------------------
+
+[2026-04-14 10:39:42] SESSION: default_user
+USER: what is the item code of most sell item
+BOT: 3364040150
+--------------------------------------------------
+
+[2026-04-14 10:39:51] SESSION: default_user
+USER: what is its total revenue
+BOT: 2,976,540,562.97
+--------------------------------------------------
+
+[2026-04-14 12:16:45] SESSION: default_user
+USER: what is the total revenue of the most sell item
+BOT: 117,071,299.38
+--------------------------------------------------
+
+[2026-04-14 12:19:30] SESSION: default_user
+USER: which is the region with most qty sold
+BOT: DEFAULT COLLECTOR
+--------------------------------------------------
+
+[2026-04-14 12:19:57] SESSION: default_user
+USER: what is the qty of item sold in the highest sold region
+BOT: 455,626
+--------------------------------------------------
