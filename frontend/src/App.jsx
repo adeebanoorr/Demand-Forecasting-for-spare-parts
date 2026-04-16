@@ -180,7 +180,7 @@ const SectionTitle = ({ title }) => (
 
 // --- Main Dashboard Component ---
 
-function Dashboard() {
+function Dashboard({ onLogout }) {
   const [page, setPage] = useState('home');
   const [items, setItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState('');
@@ -292,7 +292,12 @@ function Dashboard() {
           </div>
 
           <div className="flex items-center gap-6 w-48 justify-end">
-            {/* Right-side header content placeholder */}
+            <button
+              onClick={onLogout}
+              className="px-4 py-2 bg-slate-50 border border-slate-100 rounded-lg text-xs font-bold text-slate-500 hover:bg-slate-100 hover:text-red-500 transition-all flex items-center gap-2"
+            >
+              <Activity size={14} /> Log Out
+            </button>
           </div>
         </header>
 
@@ -713,12 +718,13 @@ export default function App() {
   const [view, setView] = useState("landing");
 
   if (view === "landing") {
-    return <LandingPage onExplore={() => setView("login")} />;
+    return <LandingPage onLogin={() => setView("login")} />;
   }
 
   if (view === "login") {
-    return <LoginPage onLogin={() => setView("dashboard")} />;
+    return <LoginPage onLogin={() => setView("dashboard")} onBack={() => setView("landing")} />;
   }
 
-  return <Dashboard />;
+  return <Dashboard onLogout={() => setView("login")} />;
 }
+

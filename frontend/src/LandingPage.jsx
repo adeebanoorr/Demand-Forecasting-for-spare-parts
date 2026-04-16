@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   BarChart2,
   Cpu,
@@ -104,7 +104,8 @@ function useCounter(target, duration = 1200, start = false) {
   return count;
 }
 
-export default function LandingPage({ onExplore }) {
+export default function LandingPage({ onLogin }) {
+  const problemRef = useRef(null);
   const [visible, setVisible] = useState(false);
   const [statsVisible, setStatsVisible] = useState(false);
 
@@ -174,7 +175,7 @@ export default function LandingPage({ onExplore }) {
         </div>
         <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
           <button
-            onClick={onExplore}
+            onClick={onLogin}
             style={{
               background: "transparent",
               border: "1px solid rgba(0,117,190,0.3)",
@@ -242,7 +243,7 @@ export default function LandingPage({ onExplore }) {
 
           <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
             <button
-              onClick={onExplore}
+              onClick={() => problemRef.current?.scrollIntoView({ behavior: 'smooth' })}
               style={{
                 background: "linear-gradient(135deg, #0075BE, #234FA2)",
                 border: "none", color: "#fff",
@@ -258,7 +259,7 @@ export default function LandingPage({ onExplore }) {
               Explore Platform <ArrowRight size={18} />
             </button>
             <button
-              onClick={onExplore}
+              onClick={onLogin}
               style={{
                 background: "rgba(255,255,255,0.04)",
                 border: "1px solid rgba(255,255,255,0.12)",
@@ -314,7 +315,7 @@ export default function LandingPage({ onExplore }) {
         </section>
 
         {/* PROBLEM SECTION */}
-        <section style={{ maxWidth: 1100, margin: "0 auto 100px", padding: "0 2rem" }}>
+        <section ref={problemRef} style={{ maxWidth: 1100, margin: "0 auto 100px", padding: "0 2rem" }}>
           <div style={{ textAlign: "center", marginBottom: "3rem" }}>
             <div style={{
               display: "inline-block",
@@ -454,14 +455,14 @@ export default function LandingPage({ onExplore }) {
             </p>
             <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
               <button
-                onClick={onExplore}
+                onClick={onLogin}
                 style={{
-                  background: "linear-gradient(135deg, #22d3ee, #6366f1)",
+                  background: "linear-gradient(135deg, #0075BE, #234FA2)",
                   border: "none", color: "#fff",
                   borderRadius: 12, padding: "14px 36px",
                   cursor: "pointer", fontSize: "1rem", fontWeight: 600,
                   display: "flex", alignItems: "center", gap: 8,
-                  boxShadow: "0 0 40px rgba(34,211,238,0.2)",
+                  boxShadow: "0 0 40px rgba(0,117,190,0.2)",
                   transition: "all 0.2s",
                 }}
                 onMouseOver={e => { e.currentTarget.style.transform = "scale(1.03)"; }}

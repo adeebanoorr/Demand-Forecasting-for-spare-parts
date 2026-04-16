@@ -5,7 +5,7 @@ import { BarChart2, Lock, User, Eye, EyeOff, ArrowRight, AlertCircle } from "luc
 const ADMIN_USER = "admin";
 const ADMIN_PASS = "kpcl2024";
 
-export default function LoginPage({ onLogin }) {
+export default function LoginPage({ onLogin, onBack }) {
   const [form, setForm] = useState({ username: "", password: "" });
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
@@ -195,6 +195,25 @@ export default function LoginPage({ onLogin }) {
             </div>
             <h2 style={{ fontWeight: 700, fontSize: "1.3rem", marginBottom: 4 }}>Welcome back</h2>
             <p style={{ color: "#475569", fontSize: "0.875rem" }}>Sign in to your admin account</p>
+          </div>
+
+          <div style={{ marginBottom: '1.5rem' }}>
+            <button
+              onClick={onBack}
+              style={{
+                background: "transparent",
+                border: "1px solid rgba(255,255,255,0.1)",
+                color: "#64748b",
+                borderRadius: 8, padding: "6px 12px",
+                cursor: "pointer", fontSize: "0.75rem", fontWeight: 500,
+                transition: "all 0.2s",
+                display: "flex", alignItems: "center", gap: 6, margin: "0 auto"
+              }}
+              onMouseOver={e => { e.target.style.background = "rgba(255,255,255,0.05)"; e.target.style.color = "#e2e8f0"; }}
+              onMouseOut={e => { e.target.style.background = "transparent"; e.target.style.color = "#64748b"; }}
+            >
+               ← Back to Home
+            </button>
           </div>
 
           {/* Error message */}
